@@ -208,6 +208,12 @@
                 text-overflow: ellipsis;
                 margin-bottom: 0.25rem;
             }
+            .stat-card-link .row {
+                flex-wrap: nowrap;
+            }
+            .stat-card-link .col {
+                min-width: 0;
+            }
         </style>
         <div class="row mb-3">
             <!-- Present Today -->
@@ -217,8 +223,8 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1"
-                                        class="stat-card-label">Present Today</div>
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1 stat-card-label">
+                                        Present Today</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark">{{ $presentToday }}</div>
                                 </div>
                                 <div class="col-auto">
@@ -237,8 +243,8 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1"
-                                        class="stat-card-label">Absent Today</div>
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1 stat-card-label">
+                                        Absent Today</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark">{{ $absentToday }}</div>
                                 </div>
                                 <div class="col-auto">
@@ -257,8 +263,8 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"
-                                        class="stat-card-label">Late Today</div>
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 stat-card-label">
+                                        Late Today</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark">{{ $lateToday }}</div>
                                 </div>
                                 <div class="col-auto">
@@ -277,8 +283,8 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"
-                                        class="stat-card-label">Total Employees</div>
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 stat-card-label">
+                                        Total Employees</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark">{{ $totalEmployees }}</div>
                                 </div>
                                 <div class="col-auto">
@@ -297,8 +303,8 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"
-                                        class="stat-card-label">Departments</div>
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 stat-card-label">
+                                        Departments</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark">{{ $totalDepartments }}</div>
                                 </div>
                                 <div class="col-auto">
@@ -318,7 +324,7 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1" class="stat-card-label"
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1 stat-card-label"
                                             style="color: #8b5cf6;">Pending Leaves</div>
                                         <div class="h3 mb-0 font-weight-bold text-dark">{{ $pendingLeaves }}</div>
                                     </div>

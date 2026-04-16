@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -28,21 +31,17 @@ class UserManagementController extends Controller
         return view('users.form');
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'role' => 'required|in:admin,hr,employee',
-        ]);
+        $validated = $request->validated();
 
         User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => $validated['role'],
             'is_active' => true,
+            'requires_password_change' => true,
         ]);
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
@@ -53,37 +52,19 @@ class UserManagementController extends Controller
         return view('users.form', compact('user'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $rules = [
-            'name' => 'required|string|max:255',
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique('users')->ignore($user->id),
-            ],
-            'role' => 'required|in:admin,hr,employee',
-            'is_active' => 'boolean',
-        ];
-
-        // Only validate password if it's being changed
-        if ($request->filled('password')) {
-            $rules['password'] = 'string|min:8';
-        }
-
-        $request->validate($rules);
-
+        $validated = $request->validated();
+        
         $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => $request->role,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'role' => $validated['role'],
             'is_active' => $request->boolean('is_active', true),
         ];
 
         if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
+            $data['password'] = Hash::make($validated['password']);
         }
 
         $user->update($data);
@@ -93,10 +74,13 @@ class UserManagementController extends Controller
 
     public function destroy(User $user)
     {
-        if (auth()->id() === $user->id) {
+        if (Auth::id() === $user->id) {
             return redirect()->route('users.index')->with('error', 'You cannot delete your own account.');
         }
 
+        if ($user->employee) {
+            $user->employee->delete();
+        }
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }

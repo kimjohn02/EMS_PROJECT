@@ -35,11 +35,11 @@
                     <tbody>
                         @forelse($departments as $department)
                             <tr>
-                                <td class="text-muted fw-bold">#{{ $department->id }}</td>
-                                <td class="fw-semibold">{{ $department->name }}</td>
+                                <td>{{ $department->id }}</td>
+                                <td>{{ $department->name }}</td>
                                 <td>{{ $department->head ?? 'Not Assigned' }}</td>
                                 <td>
-                                    <span class="fw-bold">{{ $department->employees_count }}</span>
+                                    <span>{{ $department->employees_count }}</span>
                                 </td>
                                 <td>
                                     @if($department->is_active)

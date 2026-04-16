@@ -21,6 +21,8 @@ class AuthController extends Controller
             'email'    => 'required|email',
             'password' => 'required',
         ]);
+        
+        $credentials['is_active'] = true; // only allow active users to login
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
@@ -36,5 +38,30 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login');
+    }
+
+    public function showForceChange()
+    {
+        $user = Auth::user();
+        if (!$user || !$user->requires_password_change) {
+            return redirect()->route('dashboard');
+        }
+        return view('auth.force-change');
+    }
+
+    public function forceChange(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed'
+        ]);
+
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $user->update([
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+            'requires_password_change' => false,
+        ]);
+
+        return redirect()->route('dashboard')->with('success', 'Your password has been successfully updated.');
     }
 }

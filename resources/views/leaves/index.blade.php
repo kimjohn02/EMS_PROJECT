@@ -35,8 +35,9 @@
                 <table class="table table-hover mb-0">
                     <thead class="bg-light">
                         <tr>
+                            <th class="text-uppercase text-dark font-weight-bold">ID</th>
                             @if(auth()->user()->role !== 'employee')
-                            <th class="text-uppercase text-dark font-weight-bold">Employee</th>
+                            <th class="text-uppercase text-dark font-weight-bold">Employee Name</th>
                             @endif
                             <th class="text-uppercase text-dark font-weight-bold">Type</th>
                             <th class="text-uppercase text-dark font-weight-bold">Start Date</th>
@@ -49,13 +50,14 @@
                     <tbody>
                         @forelse($leaves as $leave)
                             <tr>
+                                <td class="fw-normal">{{ $leave->id }}</td>
                                 @if(auth()->user()->role !== 'employee')
-                                <td class="fw-bold">{{ $leave->user->name }}</td>
+                                <td class="fw-normal">{{ $leave->user->name }}</td>
                                 @endif
-                                <td><span class="text-capitalize">{{ $leave->type }}</span></td>
-                                <td>{{ $leave->start_date->format('M d, Y') }}</td>
-                                <td>{{ $leave->end_date->format('M d, Y') }}</td>
-                                <td style="max-width: 200px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="{{ $leave->reason }}">
+                                <td class="fw-normal"><span class="text-capitalize">{{ $leave->type }}</span></td>
+                                <td class="fw-normal">{{ $leave->start_date->format('M d, Y') }}</td>
+                                <td class="fw-normal">{{ $leave->end_date->format('M d, Y') }}</td>
+                                <td class="fw-normal" style="max-width: 200px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="{{ $leave->reason }}">
                                     {{ $leave->reason }}
                                 </td>
                                 <td>
@@ -100,7 +102,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="{{ auth()->user()->role !== 'employee' ? 7 : 6 }}" class="text-center py-4 text-muted">No leave requests found.</td>
+                                <td colspan="{{ auth()->user()->role !== 'employee' ? 8 : 7 }}" class="text-center py-4 text-muted">No leave requests found.</td>
                             </tr>
                         @endforelse
                     </tbody>

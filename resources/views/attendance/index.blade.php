@@ -68,10 +68,11 @@
                 <table class="table table-hover mb-0">
                     <thead class="bg-light">
                         <tr>
-                            <th class="fw-bolder text-dark">Date</th>
                             @if($role === 'admin' || $role === 'hr')
+                                <th class="fw-bolder text-dark">ID</th>
                                 <th class="fw-bolder text-dark">Employee Name</th>
                             @endif
+                            <th class="fw-bolder text-dark">Date</th>
                             <th class="fw-bolder text-dark">Time In</th>
                             <th class="fw-bolder text-dark">Time Out</th>
                             <th class="fw-bolder text-dark">Hours Worked</th>
@@ -81,28 +82,28 @@
                     <tbody>
                         @forelse($attendances as $log)
                             <tr>
-                                <td class="fw-semibold">{{ \Carbon\Carbon::parse($log->date)->format('M d, Y') }}</td>
                                 @if($role === 'admin' || $role === 'hr')
-                                    <td>
-                                        <div class="fw-bold">{{ $log->user->name }}</div>
-                                        <div class="text-muted" style="font-size: 0.8rem;">
-                                            {{ $log->user->employee ? $log->user->employee->employee_id : 'N/A' }}
-                                        </div>
+                                    <td class="fw-normal">
+                                        {{ $log->user->employee ? (int) preg_replace('/[^0-9]/', '', $log->user->employee->employee_id) : 'N/A' }}
+                                    </td>
+                                    <td class="fw-normal">
+                                        {{ $log->user->name }}
                                     </td>
                                 @endif
-                                <td class="{{ $log->time_in ? 'text-success fw-bold' : 'text-muted' }}">
+                                <td class="fw-normal">{{ \Carbon\Carbon::parse($log->date)->format('M d, Y') }}</td>
+                                <td class="{{ $log->time_in ? 'fw-normal' : 'text-muted' }}">
                                     {{ $log->time_in ? \Carbon\Carbon::parse($log->time_in)->format('h:i A') : '--:--' }}
                                 </td>
-                                <td class="{{ $log->time_out ? 'text-primary fw-bold' : 'text-muted' }}">
+                                <td class="{{ $log->time_out ? 'fw-normal' : 'text-muted' }}">
                                     {{ $log->time_out ? \Carbon\Carbon::parse($log->time_out)->format('h:i A') : '--:--' }}
                                 </td>
-                                <td>
+                                <td class="fw-normal">
                                     @if($log->time_in && $log->time_out)
                                         @php
                                             $diff = \Carbon\Carbon::parse($log->time_in)->diff(\Carbon\Carbon::parse($log->time_out));
                                             $total = $diff->format('%h hr %i min');
                                         @endphp
-                                        <span class="text-secondary fw-semibold" style="font-size: 0.85rem;">{{ $total }}</span>
+                                        <span>{{ $total }}</span>
                                     @else
                                         <span class="text-muted">--</span>
                                     @endif

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\Department;
+use App\Http\Requests\StoreEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -45,33 +47,27 @@ class EmployeeController extends Controller
         return view('employees.show', compact('employee', 'recentAttendance'));
     }
 
-    public function store(Request $request)
+    public function store(StoreEmployeeRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'department_id' => 'required|exists:departments,id',
-            'position' => 'required|string|max:255',
-            'date_hired' => 'required|date',
-            'phone' => 'nullable|string|max:20',
-        ]);
+        $validated = $request->validated();
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
             'password' => Hash::make('password'), // default password
             'role' => 'employee',
+            'requires_password_change' => true,
         ]);
 
         $employeeId = 'EMP-' . str_pad($user->id, 4, '0', STR_PAD_LEFT);
 
         Employee::create([
             'user_id' => $user->id,
-            'department_id' => $request->department_id,
+            'department_id' => $validated['department_id'],
             'employee_id' => $employeeId,
-            'phone' => $request->phone,
-            'position' => $request->position,
-            'date_hired' => $request->date_hired,
+            'phone' => $validated['phone'] ?? null,
+            'position' => $validated['position'],
+            'date_hired' => $validated['date_hired'],
             'status' => 'active',
         ]);
 
@@ -85,29 +81,21 @@ class EmployeeController extends Controller
         return view('employees.form', compact('employee', 'departments'));
     }
 
-    public function update(Request $request, Employee $employee)
+    public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'.$employee->user_id,
-            'department_id' => 'required|exists:departments,id',
-            'position' => 'required|string|max:255',
-            'date_hired' => 'required|date',
-            'phone' => 'nullable|string|max:20',
-            'status' => 'required|in:active,inactive,on_leave',
-        ]);
+        $validated = $request->validated();
 
         $employee->user->update([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
         ]);
 
         $employee->update([
-            'department_id' => $request->department_id,
-            'phone' => $request->phone,
-            'position' => $request->position,
-            'date_hired' => $request->date_hired,
-            'status' => $request->status,
+            'department_id' => $validated['department_id'],
+            'phone' => $validated['phone'] ?? null,
+            'position' => $validated['position'],
+            'date_hired' => $validated['date_hired'],
+            'status' => $validated['status'],
         ]);
 
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
@@ -116,7 +104,11 @@ class EmployeeController extends Controller
     // Admins only (handled by routes)
     public function destroy(Employee $employee)
     {
-        $employee->user->delete(); // Cascades to employee
+        $user = $employee->user;
+        $employee->delete();
+        if ($user) {
+            $user->delete(); 
+        }
         return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
     }
 

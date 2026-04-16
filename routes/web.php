@@ -21,11 +21,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
     
-    // Shared Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
-    // --- ADMIN MODULES ---
-    Route::middleware(['admin'])->group(function () {
+    // Force Password Change Routes
+    Route::get('/force-password-change', [AuthController::class, 'showForceChange'])->name('password.force-change');
+    Route::post('/force-password-change', [AuthController::class, 'forceChange'])->name('password.force-change.store');
+
+    Route::middleware(['\App\Http\Middleware\ForcePasswordChange'])->group(function () {
+        // Shared Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        
+        // --- ADMIN MODULES ---
+        Route::middleware(['admin'])->group(function () {
         // Departments (Full CRUD)
         Route::resource('departments', DepartmentController::class);
         
@@ -48,7 +53,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('employees/archived', [EmployeeController::class, 'archivedList'])->name('employees.archived');
         Route::patch('employees/{employee}/restore', [EmployeeController::class, 'restore'])->name('employees.restore');
         Route::resource('employees', EmployeeController::class)->except(['destroy']);
-        Route::get('employees/{employee}/show', [EmployeeController::class, 'show'])->name('employees.show');
     });
 
     // --- EMPLOYEE MODULES ---
@@ -67,4 +71,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/leaves', [App\Http\Controllers\LeaveRequestController::class, 'store'])->name('leaves.store');
     Route::patch('/leaves/{leave}/status', [App\Http\Controllers\LeaveRequestController::class, 'updateStatus'])->name('leaves.updateStatus');
     Route::patch('/leaves/{leave}/cancel', [App\Http\Controllers\LeaveRequestController::class, 'cancel'])->name('leaves.cancel');
+    
+    }); // End ForcePasswordChange
 });

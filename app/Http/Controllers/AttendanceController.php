@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
     public function index()
     {
-        $user = auth()->user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
         
         if ($user->isAdmin() || $user->isHR()) {
             $attendances = Attendance::with('user')->orderBy('date', 'desc')->paginate(10);
@@ -27,7 +29,8 @@ class AttendanceController extends Controller
 
     public function timeIn(Request $request)
     {
-        $user = auth()->user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
         $today = Carbon::today()->toDateString();
         $timeNow = Carbon::now()->toTimeString();
 
@@ -46,7 +49,8 @@ class AttendanceController extends Controller
 
     public function timeOut(Request $request)
     {
-        $user = auth()->user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
         $today = Carbon::today()->toDateString();
         $timeNow = Carbon::now()->toTimeString();
 

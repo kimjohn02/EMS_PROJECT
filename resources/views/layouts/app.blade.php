@@ -370,7 +370,6 @@
                 @endif
 
                 @if($role === 'employee')
-                    <li class="nav-title">Personal</li>
                     <li>
                         <a href="{{ route('attendance.index') }}" class="sidebar-link {{ request()->routeIs('attendance.index') ? 'active' : '' }}">
                             <i class="fa-solid fa-clock"></i> My Attendance

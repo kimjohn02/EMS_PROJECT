@@ -35,8 +35,9 @@
                 <table class="table table-hover mb-0">
                     <thead class="bg-light">
                         <tr class="text-uppercase text-dark font-weight-bold fw-bolder">
-                            <th class="fw-bolder text-dark">EMP ID</th>
+                            <th class="fw-bolder text-dark">ID</th>
                             <th class="fw-bolder text-dark">Name</th>
+                            <th class="fw-bolder text-dark">Email</th>
                             <th class="fw-bolder text-dark">Department</th>
                             <th class="fw-bolder text-dark">Position</th>
                             <th class="fw-bolder text-dark">Status</th>
@@ -46,20 +47,11 @@
                     <tbody>
                         @forelse($employees as $employee)
                             <tr>
-                                <td class="fw-bold text-muted">{{ $employee->employee_id }}</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-avatar" style="width: 32px; height: 32px; font-size: 0.8rem;">
-                                            {{ substr($employee->user->name, 0, 1) }}
-                                        </div>
-                                        <div class="ms-2">
-                                            <div class="fw-semibold">{{ $employee->user->name }}</div>
-                                            <div class="text-muted" style="font-size: 0.8rem;">{{ $employee->user->email }}</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>{{ $employee->department ? $employee->department->name : 'N/A' }}</td>
-                                <td>{{ $employee->position }}</td>
+                                <td class="fw-normal">{{ (int) preg_replace('/[^0-9]/', '', $employee->employee_id) }}</td>
+                                <td class="fw-normal">{{ $employee->user->name }}</td>
+                                <td class="fw-normal">{{ $employee->user->email }}</td>
+                                <td class="fw-normal">{{ $employee->department ? $employee->department->name : 'N/A' }}</td>
+                                <td class="fw-normal">{{ $employee->position }}</td>
                                 <td>
                                     @if($employee->status === 'active')
                                         <span class="badge-status badge-present">Active</span>

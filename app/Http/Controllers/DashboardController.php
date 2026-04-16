@@ -51,17 +51,14 @@ class DashboardController extends Controller
                 ->count();
             $employeeAttendanceRate = $totalWorkDays > 0 ? round(($presentDays / $totalWorkDays) * 100) : 0;
 
-            // Calculate hours worked this month
-            $attendances = Attendance::where('user_id', $user->id)
+            // Calculate hours worked this month (Optimized Database Aggregation)
+            $totalMinutes = Attendance::where('user_id', $user->id)
                 ->whereBetween('date', [$monthStart, $monthEnd])
-                ->get();
-            foreach ($attendances as $att) {
-                if ($att->time_in && $att->time_out) {
-                    $diff = Carbon::parse($att->time_in)->diffInMinutes(Carbon::parse($att->time_out));
-                    $employeeHoursWorked += $diff;
-                }
-            }
-            $employeeHoursWorked = round($employeeHoursWorked / 60, 1);
+                ->whereNotNull('time_in')
+                ->whereNotNull('time_out')
+                ->sum(\Illuminate\Support\Facades\DB::raw('TIMESTAMPDIFF(MINUTE, time_in, time_out)'));
+                
+            $employeeHoursWorked = round($totalMinutes / 60, 1);
 
             // Calculate leave balance (assuming 15 vacation, 10 sick, 5 emergency per year)
             $allLeaves = LeaveRequest::where('user_id', $user->id)
