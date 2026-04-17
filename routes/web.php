@@ -45,13 +45,15 @@ Route::middleware(['auth'])->group(function () {
         
         // Employee Archive (Admin only) — sets status to inactive
         Route::patch('employees/{employee}/archive', [EmployeeController::class, 'archive'])->name('employees.archive');
+
+        // Archived employees (Admin only)
+        Route::get('employees/archived', [EmployeeController::class, 'archivedList'])->name('employees.archived');
+        Route::patch('employees/{employee}/restore', [EmployeeController::class, 'restore'])->name('employees.restore');
     });
 
     // --- ADMIN & HR MODULES ---
     Route::middleware(['admin_or_hr'])->group(function () {
         // Employee Management
-        Route::get('employees/archived', [EmployeeController::class, 'archivedList'])->name('employees.archived');
-        Route::patch('employees/{employee}/restore', [EmployeeController::class, 'restore'])->name('employees.restore');
         Route::resource('employees', EmployeeController::class)->except(['destroy']);
     });
 

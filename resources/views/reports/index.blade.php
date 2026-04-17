@@ -68,8 +68,8 @@
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped mb-0">
-                    <thead class="table-light">
+                <table class="table table-hover mb-0">
+                    <thead class="bg-light">
                         <tr class="text-uppercase text-dark font-weight-bold fw-bolder">
                             <th class="fw-bolder text-dark">Employee ID</th>
                             <th class="fw-bolder text-dark">Name</th>

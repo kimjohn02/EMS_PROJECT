@@ -20,11 +20,11 @@
                         <h6 class="text-primary fw-bold mb-3 border-bottom pb-2">Account Information</h6>
                         <div class="row mb-4">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Full Name <span class="text-danger">*</span></label>
+                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Full Name</label>
                                 <input type="text" name="name" class="form-control" value="{{ old('name', isset($employee) ? $employee->user->name : '') }}" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Email Address <span class="text-danger">*</span></label>
+                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Email Address</label>
                                 <input type="email" name="email" class="form-control" value="{{ old('email', isset($employee) ? $employee->user->email : '') }}" required>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                         <h6 class="text-primary fw-bold mb-3 border-bottom pb-2">Employment Details</h6>
                         <div class="row mb-4">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Department <span class="text-danger">*</span></label>
+                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Department</label>
                                 <select name="department_id" class="form-select" required>
                                     <option value="">Select Department...</option>
                                     @foreach($departments as $dept)
@@ -43,12 +43,12 @@
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Position <span class="text-danger">*</span></label>
+                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Position</label>
                                 <input type="text" name="position" class="form-control" value="{{ old('position', isset($employee) ? $employee->position : '') }}" required>
                             </div>
                             
                             <div class="col-md-6 mb-3">
-                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Date Hired <span class="text-danger">*</span></label>
+                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Date Hired</label>
                                 <input type="date" name="date_hired" class="form-control" value="{{ old('date_hired', isset($employee) ? $employee->date_hired->format('Y-m-d') : '') }}" required>
                             </div>
                             
@@ -59,7 +59,7 @@
 
                             @if(isset($employee))
                             <div class="col-md-6 mb-3">
-                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Status <span class="text-danger">*</span></label>
+                                <label class="form-label text-muted fw-semibold" style="font-size: 0.85rem;">Status</label>
                                 <select name="status" class="form-select" required>
                                     <option value="active" {{ $employee->status === 'active' ? 'selected' : '' }}>Active</option>
                                     <option value="inactive" {{ $employee->status === 'inactive' ? 'selected' : '' }}>Inactive</option>
@@ -87,12 +87,6 @@
                     </form>
                 </div>
             </div>
-            
-            @if(!isset($employee))
-            <div class="mt-3 text-center text-muted" style="font-size: 0.85rem;">
-                <i class="fa-solid fa-circle-info me-1"></i> A default password ("password") will be generated for new employees.
-            </div>
-            @endif
         </div>
     </div>
 @endsection

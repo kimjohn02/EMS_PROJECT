@@ -13,7 +13,7 @@
     <div class="card shadow-sm">
         <div class="card-header bg-white d-flex justify-content-between align-items-center">
             <form action="{{ route('users.index') }}" method="GET" class="d-flex">
-                <div class="input-group input-group-sm" style="width: 250px;">
+                <div class="input-group input-group-sm app-search-group">
                     <input type="text" name="search" class="form-control" placeholder="Search name or email..."
                         value="{{ request('search') }}">
                     <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-search"></i></button>

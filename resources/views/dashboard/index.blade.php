@@ -9,78 +9,86 @@
         <div class="row mb-4">
             <!-- Attendance Rate Card -->
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow-sm h-100" style="border-left: 4px solid #10b981;">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1"
-                                    style="font-size: 0.8rem; font-weight: 700;">
-                                    Attendance Rate (This Month)</div>
-                                <div class="h3 mb-0 font-weight-bold text-dark">{{ $employeeAttendanceRate }}%</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa-solid fa-chart-pie fa-2x text-muted" style="opacity: 0.3;"></i>
+                <a href="{{ route('attendance.index') }}" class="text-decoration-none d-block h-100" style="color: inherit;">
+                    <div class="card shadow-sm h-100" style="border-left: 4px solid #10b981;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-chart-pie fa-2x text-muted" style="opacity: 0.3;"></i>
+                                </div>
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                                        style="font-size: 0.8rem; font-weight: 700;">
+                                        Attendance Rate (This Month)</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $employeeAttendanceRate }}%</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- Hours Worked Card -->
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow-sm h-100" style="border-left: 4px solid #3b82f6;">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"
-                                    style="font-size: 0.8rem; font-weight: 700;">
-                                    Hours Worked (This Month)</div>
-                                <div class="h3 mb-0 font-weight-bold text-dark">{{ $employeeHoursWorked }} hrs</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa-solid fa-hourglass-end fa-2x text-muted" style="opacity: 0.3;"></i>
+                <a href="{{ route('attendance.index') }}" class="text-decoration-none d-block h-100" style="color: inherit;">
+                    <div class="card shadow-sm h-100" style="border-left: 4px solid #3b82f6;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-hourglass-end fa-2x text-muted" style="opacity: 0.3;"></i>
+                                </div>
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                        style="font-size: 0.8rem; font-weight: 700;">
+                                        Hours Worked (This Month)</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $employeeHoursWorked }} hrs</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- Leave Balance Card -->
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow-sm h-100" style="border-left: 4px solid #f59e0b;">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"
-                                    style="font-size: 0.8rem; font-weight: 700;">
-                                    Vacation Days Left</div>
-                                <div class="h3 mb-0 font-weight-bold text-dark">{{ $leaveBalance['vacation'] }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa-solid fa-plane fa-2x text-muted" style="opacity: 0.3;"></i>
+                <a href="{{ route('leaves.create') }}" class="text-decoration-none d-block h-100" style="color: inherit;">
+                    <div class="card shadow-sm h-100" style="border-left: 4px solid #f59e0b;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-plane fa-2x text-muted" style="opacity: 0.3;"></i>
+                                </div>
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"
+                                        style="font-size: 0.8rem; font-weight: 700;">
+                                        Vacation Days Left</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $leaveBalance['vacation'] }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- Pending Requests Card -->
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow-sm h-100" style="border-left: 4px solid #8b5cf6;">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-uppercase mb-1"
-                                    style="font-size: 0.8rem; font-weight: 700; color: #8b5cf6;">
-                                    Pending Requests</div>
-                                <div class="h3 mb-0 font-weight-bold text-dark">{{ $myPendingLeaves }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa-solid fa-clock fa-2x text-muted" style="opacity: 0.3;"></i>
+                <a href="{{ route('leaves.index') }}" class="text-decoration-none d-block h-100" style="color: inherit;">
+                    <div class="card shadow-sm h-100" style="border-left: 4px solid #8b5cf6;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-clock fa-2x text-muted" style="opacity: 0.3;"></i>
+                                </div>
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1"
+                                        style="font-size: 0.8rem; font-weight: 700; color: #8b5cf6;">
+                                        Pending Requests</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $myPendingLeaves }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
 
@@ -177,9 +185,7 @@
         </div>
 
     @else
-        <!-- ADMIN/HR DASHBOARD -->
-        <!-- ADMIN/HR DASHBOARD -->
-        <!-- HR/Admin Stats Cards -->
+        
         <style>
             .stat-card-link {
                 text-decoration: none;
@@ -214,6 +220,34 @@
             .stat-card-link .col {
                 min-width: 0;
             }
+
+            .hr-layout-row {
+                margin-top: 1.5rem;
+                padding-top: 0.75rem;
+                border-top: 2px solid #e9ecef;
+            }
+
+            .hr-layout-card-col {
+                padding-top: 1.25rem;
+                border-top: 2px solid #e9ecef;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .hr-layout-card {
+                flex: 1;
+                margin-bottom: 0;
+            }
+
+            .hr-leave-list {
+                max-height: 340px;
+                overflow-y: auto;
+            }
+
+            .hr-leave-list .list-group-item {
+                padding-top: 0.95rem;
+                padding-bottom: 0.95rem;
+            }
         </style>
         <div class="row mb-3">
             <!-- Present Today -->
@@ -222,13 +256,13 @@
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #10b981;">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-user-check fa-2x text-muted" style="opacity: 0.3;"></i>
+                                </div>
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1 stat-card-label">
                                         Present Today</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark">{{ $presentToday }}</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa-solid fa-user-check fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                             </div>
                         </div>
@@ -242,13 +276,13 @@
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #ef4444;">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-user-xmark fa-2x text-muted" style="opacity: 0.3;"></i>
+                                </div>
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1 stat-card-label">
                                         Absent Today</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark">{{ $absentToday }}</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa-solid fa-user-xmark fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                             </div>
                         </div>
@@ -262,13 +296,13 @@
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #f59e0b;">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-hourglass-end fa-2x text-muted" style="opacity: 0.3;"></i>
+                                </div>
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 stat-card-label">
                                         Late Today</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark">{{ $lateToday }}</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa-solid fa-hourglass-end fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                             </div>
                         </div>
@@ -282,13 +316,13 @@
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #3b82f6;">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-users fa-2x text-muted" style="opacity: 0.3;"></i>
+                                </div>
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 stat-card-label">
                                         Total Employees</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark">{{ $totalEmployees }}</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa-solid fa-users fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                             </div>
                         </div>
@@ -302,13 +336,13 @@
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #f59e0b;">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-building fa-2x text-muted" style="opacity: 0.3;"></i>
+                                </div>
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 stat-card-label">
                                         Departments</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark">{{ $totalDepartments }}</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa-solid fa-building fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                             </div>
                         </div>
@@ -323,13 +357,13 @@
                         <div class="card shadow-sm h-100" style="border-left: 4px solid #8b5cf6;">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fa-solid fa-clock fa-2x text-muted" style="opacity: 0.3;"></i>
+                                    </div>
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-uppercase mb-1 stat-card-label"
                                             style="color: #8b5cf6;">Pending Leaves</div>
                                         <div class="h3 mb-0 font-weight-bold text-dark">{{ $pendingLeaves }}</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa-solid fa-clock fa-2x text-muted" style="opacity: 0.3;"></i>
                                     </div>
                                 </div>
                             </div>
@@ -340,14 +374,14 @@
         </div>
 
         @if($user->role === 'admin' || $user->role === 'hr')
-            <div class="row mt-2">
+            <div class="row hr-layout-row">
                 <!-- Attendance Chart -->
                 <div class="col-lg-8 mb-4">
                     <div class="card shadow-sm h-100">
                         <div class="card-header bg-white">
                             <h6 class="m-0 fw-bolder text-dark">Attendance Overview (Last 7 Days)</h6>
                         </div>
-                        <div class="card-body" style="position: relative; height: 220px; width: 100%;">
+                        <div class="card-body" style="position: relative; height: 250px; width: 100%;">
                             <canvas id="attendanceChart"></canvas>
                         </div>
                     </div>
@@ -368,8 +402,12 @@
                                             <span class="text-muted">{{ $dept->employees_count }} / {{ $totalEmployees }}</span>
                                         </div>
                                         <div class="progress" style="height: 8px;">
-                                            @php $pct = $totalEmployees > 0 ? ($dept->employees_count / $totalEmployees) * 100 : 0; @endphp
-                                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $pct }}%"
+                                            @php 
+                                                $pct = $totalEmployees > 0 ? ($dept->employees_count / $totalEmployees) * 100 : 0;
+                                                $colors = ['Information Technology' => 'bg-primary', 'Human Resources' => 'bg-success', 'Finance' => 'bg-warning', 'Operations' => 'bg-danger', 'Marketing' => 'bg-info'];
+                                                $colorClass = $colors[$dept->name] ?? 'bg-primary';
+                                            @endphp
+                                            <div class="progress-bar {{ $colorClass }}" role="progressbar" style="width: {{ $pct }}%"
                                                 aria-valuenow="{{ $pct }}" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
@@ -379,18 +417,47 @@
                     </div>
                 @endif
 
+                @if($user->role === 'hr')
+                    <div class="col-lg-4 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h6 class="m-0 fw-bolder text-dark">Today's Summary</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 pb-3 border-bottom">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-muted">Check-In Rate</span>
+                                        @php
+                                            $checkInRate = $totalEmployees > 0 ? round((($presentToday + $lateToday) / $totalEmployees) * 100) : 0;
+                                        @endphp
+                                        <strong>{{ $checkInRate }}%</strong>
+                                    </div>
+                                    <div class="progress mt-2" style="height: 6px;">
+                                        <div class="progress-bar" role="progressbar" style="width: {{ $checkInRate }}%"
+                                            aria-valuenow="{{ $checkInRate }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <small class="text-muted">{{ $presentToday + $lateToday }} out of {{ $totalEmployees }} checked
+                                        in</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <!-- Recent Leave Requests -->
-                <div class="col-lg-8 mb-4">
-                    <div class="card shadow-sm">
+                <div class="{{ $user->role === 'hr' ? 'col-12' : 'col-lg-8' }} mb-4 hr-layout-card-col">
+                    <div class="card shadow-sm hr-layout-card">
                         <div class="card-header bg-white d-flex justify-content-between align-items-center">
                             <h6 class="m-0 fw-bolder text-dark">Recent Leave Requests</h6>
                             <a href="{{ route('leaves.index') }}" class="btn btn-sm btn-outline-primary">View All</a>
                         </div>
-                        <div class="card-body p-0">
+                        <div class="card-body p-0 hr-leave-list">
                             @if($recentActivities->count() > 0)
                                 <div class="list-group list-group-flush">
                                     @foreach($recentActivities as $leave)
-                                        <div class="list-group-item d-flex justify-content-between align-items-center py-3 px-4">
+                                        <div class="list-group-item d-flex justify-content-between align-items-center px-4">
                                             <div>
                                                 <div class="fw-bold">{{ $leave->user->name }}</div>
                                                 <small class="text-muted text-capitalize">{{ $leave->type }} &mdash;
@@ -420,8 +487,9 @@
                 </div>
 
                 <!-- Today's Summary -->
-                <div class="col-lg-4 mb-4">
-                    <div class="card shadow-sm">
+                @if($user->role === 'admin')
+                <div class="col-lg-4 mb-4 hr-layout-card-col">
+                    <div class="card shadow-sm h-100 hr-layout-card">
                         <div class="card-header bg-white">
                             <h6 class="m-0 fw-bolder text-dark">Today's Summary</h6>
                         </div>
@@ -446,6 +514,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         @endif
     @endif

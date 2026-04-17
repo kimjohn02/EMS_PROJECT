@@ -58,8 +58,8 @@ class AttendanceController extends Controller
 
         if ($attendance && $attendance->time_in && !$attendance->time_out) {
             $timeIn = Carbon::parse($attendance->time_in);
-            if ($timeIn->diffInMinutes(Carbon::now()) < 5) {
-                return back()->with('error', 'You must wait at least 5 minutes before timing out.');
+            if ($timeIn->diffInMinutes(Carbon::now()) < 60) {
+                return back()->with('error', 'You must wait at least 1 hour before timing out.');
             }
 
             $attendance->update(['time_out' => $timeNow]);

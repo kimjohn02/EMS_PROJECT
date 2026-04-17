@@ -153,6 +153,27 @@
             color: var(--active-icon);
             font-weight: 900;
         }
+
+        .sidebar-link.logout-link {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: #ef4444;
+            text-align: left;
+        }
+
+        .sidebar-link.logout-link i {
+            color: #ef4444;
+        }
+
+        .sidebar-link.logout-link:hover {
+            background-color: #fef2f2;
+            color: #dc2626;
+        }
+
+        .sidebar-link.logout-link:hover i {
+            color: #dc2626;
+        }
         
         /* Bottom Profile Section */
         .sidebar-profile {
@@ -277,27 +298,57 @@
         .table-responsive {
             background: white;
             border-radius: 12px;
-            padding: 10px;
+            padding: 6px;
         }
         
         .table th {
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 0.85rem;
+            color: #1e293b;
+            font-weight: 700;
+            font-size: 1.03rem;
             text-transform: uppercase;
-            border-bottom-width: 1px;
+            letter-spacing: 0.01em;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0.95rem 0.6rem;
+            white-space: nowrap;
         }
         
         .table td {
             vertical-align: middle;
-            font-size: 0.95rem;
+            color: #0f172a;
+            font-size: 1.02rem;
+            padding: 0.95rem 0.6rem;
+        }
+
+        .table > :not(caption) > * > * {
+            border-bottom-color: #e2e8f0;
+        }
+
+        .table.table-hover tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .app-search-group {
+            width: 350px !important;
+        }
+
+        .app-search-group .form-control,
+        .app-search-group .btn {
+            height: 50px;
+            font-size: 1.1rem;
+        }
+
+        .app-search-group .form-control::placeholder {
+            font-size: 1rem;
         }
 
         .badge-status {
-            padding: 5px 10px;
+            padding: 8px 14px;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             font-weight: 600;
+            display: inline-block;
+            min-width: 85px;
+            text-align: center;
         }
         .badge-present { background-color: #dcfce7; color: #166534; }
         .badge-absent { background-color: #fee2e2; color: #991b1b; }
@@ -383,12 +434,12 @@
                 @endif
             </ul>
 
-            <div class="mt-auto px-4 py-4 w-100 border-top border-secondary border-opacity-25" style="background-color: transparent;">
-                <form action="{{ route('logout') }}" method="POST">
+            <div class="mt-auto px-3 py-3 w-100 border-top border-secondary border-opacity-25" style="background-color: transparent;">
+                <form action="{{ route('logout') }}" method="POST" class="m-0">
                     @csrf
-                    <button type="submit" class="btn btn-link text-decoration-none text-start p-0 w-100 d-flex align-items-center" style="font-size: 0.95rem; border: none; outline: none; box-shadow: none; color: #ef4444;">
-                        <i class="fa-solid fa-right-from-bracket me-3" style="font-size: 1.1rem; width: 20px; color: #ef4444;"></i>
-                        <span class="fw-bold">Logout</span>
+                    <button type="submit" class="sidebar-link logout-link">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
                     </button>
                 </form>
             </div>

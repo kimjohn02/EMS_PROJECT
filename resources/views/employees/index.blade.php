@@ -5,14 +5,16 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="page-title mb-0">Manage Employees</h2>
         <div>
-            <a href="{{ route('employees.archived') }}" class="btn btn-sm me-2 position-relative" style="color: #d97706; border: 1px solid #d97706; border-radius: 8px; padding: 7px 16px; font-weight: 600;">
-                <i class="fa-solid fa-box-archive me-1"></i> View Archived
-                @if(isset($archivedCount) && $archivedCount > 0)
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="background-color: #ef4444 !important;">
-                    {{ $archivedCount }}
-                </span>
-                @endif
-            </a>
+            @if(auth()->user()->role === 'admin')
+                <a href="{{ route('employees.archived') }}" class="btn btn-sm me-2 position-relative" style="color: #d97706; border: 1px solid #d97706; border-radius: 8px; padding: 7px 16px; font-weight: 600;">
+                    <i class="fa-solid fa-box-archive me-1"></i> View Archived
+                    @if(isset($archivedCount) && $archivedCount > 0)
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="background-color: #ef4444 !important;">
+                        {{ $archivedCount }}
+                    </span>
+                    @endif
+                </a>
+            @endif
             <a href="{{ route('employees.create') }}" class="btn btn-primary"><i class="fa-solid fa-plus me-1"></i> Add New Employee</a>
         </div>
     </div>
@@ -21,7 +23,7 @@
         <div class="card-header bg-white d-flex justify-content-between align-items-center">
             
             <form action="{{ route('employees.index') }}" method="GET" class="d-flex">
-                <div class="input-group input-group-sm" style="width: 250px;">
+                <div class="input-group input-group-sm app-search-group">
                     <input type="text" name="search" class="form-control" placeholder="Search name or ID..." value="{{ request('search') }}">
                     <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-search"></i></button>
                     @if(request('search'))

@@ -12,7 +12,7 @@
     <div class="card shadow-sm">
         <div class="card-header bg-white d-flex flex-wrap justify-content-between align-items-center py-3">
             <form action="{{ route('leaves.index') }}" method="GET" class="d-flex ms-auto flex-wrap gap-2 align-items-center">
-                <select name="status" class="form-select form-select-sm" style="width: auto;" onchange="this.form.submit()">
+                <select name="status" class="form-select" style="width: auto; height: 50px; font-size: 1.1rem;" onchange="this.form.submit()">
                     <option value="">All Statuses</option>
                     <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
                     <option value="approved" {{ request('status') === 'approved' ? 'selected' : '' }}>Approved</option>
@@ -20,7 +20,7 @@
                 </select>
                 
                 @if(auth()->user()->role !== 'employee')
-                <div class="input-group input-group-sm" style="width: 250px;">
+                <div class="input-group app-search-group" style="width: 350px;">
                     <input type="text" name="search" class="form-control" placeholder="Search employee..." value="{{ request('search') }}">
                     <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-search"></i></button>
                     @if(request('search') || request('status'))
