@@ -86,7 +86,7 @@
                             @endphp
                             <tr>
                                 <td>{{ $emp ? $emp->employee_id : 'N/A' }}</td>
-                                <td class="fw-semibold">{{ $attendance->user->name }}</td>
+                                <td class="fw-normal">{{ $attendance->user->name }}</td>
                                 <td>{{ $emp && $emp->department ? $emp->department->name : 'N/A' }}</td>
                                 <td>{{ $attendance->time_in ? \Carbon\Carbon::parse($attendance->time_in)->format('h:i A') : '--' }}
                                 </td>

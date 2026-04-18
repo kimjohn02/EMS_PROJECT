@@ -60,7 +60,7 @@
                         @forelse($users as $user)
                             <tr>
                                 <td>
-                                    <div class="fw-semibold">{{ $user->name }}</div>
+                                    <div class="fw-normal">{{ $user->name }}</div>
                                 </td>
                                 <td class="text-muted">{{ $user->email }}</td>
                                 <td>

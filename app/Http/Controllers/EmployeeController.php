@@ -15,21 +15,21 @@ class EmployeeController extends Controller
 {
     public function index(Request $request)
     {
-    
-        $query = Employee::with(['user', 'department'])->where('status', '!=', 'inactive');
-        
+
+        $query = Employee::with(['user', 'department'])->where('status', '!=', 'archived');
+
         if ($request->has('search') && $request->search !== '') {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->whereHas('user', function($q2) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('user', function ($q2) use ($search) {
                     $q2->where('name', 'like', "%{$search}%")
-                      ->orWhere('email', 'like', "%{$search}%");
+                        ->orWhere('email', 'like', "%{$search}%");
                 })->orWhere('employee_id', 'like', "%{$search}%");
             });
         }
 
         $employees = $query->paginate(10);
-        $archivedCount = Employee::where('status', 'inactive')->count();
+        $archivedCount = Employee::where('status', 'archived')->count();
         return view('employees.index', compact('employees', 'archivedCount'));
     }
 
@@ -107,7 +107,7 @@ class EmployeeController extends Controller
         $user = $employee->user;
         $employee->delete();
         if ($user) {
-            $user->delete(); 
+            $user->delete();
         }
         return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
     }
@@ -115,20 +115,20 @@ class EmployeeController extends Controller
     // Archive employee — sets status to inactive without deleting
     public function archive(Employee $employee)
     {
-        $employee->update(['status' => 'inactive']);
+        $employee->update(['status' => 'archived']);
         return redirect()->route('employees.index')->with('success', 'Employee has been archived successfully.');
     }
 
     // View archived employees
     public function archivedList(Request $request)
     {
-        $query = Employee::with(['user', 'department'])->where('status', 'inactive');
-        
+        $query = Employee::with(['user', 'department'])->where('status', 'archived');
+
         if ($request->has('search')) {
             $search = $request->search;
-            $query->whereHas('user', function($q) use ($search) {
+            $query->whereHas('user', function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+                    ->orWhere('email', 'like', "%{$search}%");
             })->orWhere('employee_id', 'like', "%{$search}%");
         }
 
