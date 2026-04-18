@@ -36,6 +36,20 @@ class LeaveRequestController extends Controller
         return view('leaves.index', compact('leaves'));
     }
 
+    public function show(LeaveRequest $leave)
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if (!($user->isAdmin() || $user->isHR()) && $leave->user_id !== $user->id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $leave->load('user');
+
+        return view('leaves.show', compact('leave'));
+    }
+
     public function create()
     {
         return view('leaves.create');
@@ -57,6 +71,7 @@ class LeaveRequestController extends Controller
             'end_date' => $request->end_date,
             'reason' => $request->reason,
             'status' => 'pending',
+            'rejection_reason' => null,
         ]);
 
         return redirect()->route('leaves.index')->with('success', 'Leave request submitted successfully.');
@@ -71,11 +86,15 @@ class LeaveRequestController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        $request->validate([
-            'status' => 'required|in:approved,rejected'
+        $validated = $request->validate([
+            'status' => 'required|in:approved,rejected',
+            'rejection_reason' => 'nullable|required_if:status,rejected|string|max:1000',
         ]);
 
-        $leave->update(['status' => $request->status]);
+        $leave->update([
+            'status' => $validated['status'],
+            'rejection_reason' => $validated['status'] === 'rejected' ? ($validated['rejection_reason'] ?? null) : null,
+        ]);
 
         return back()->with('success', 'Leave request status updated.');
     }

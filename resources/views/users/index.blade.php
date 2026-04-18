@@ -3,9 +3,28 @@
 @section('title', 'Users')
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <style>
+        @media (max-width: 575.98px) {
+            .users-toolbar {
+                gap: 10px;
+            }
+
+            .users-create-btn {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.95rem;
+                white-space: nowrap;
+            }
+
+            .users-table td {
+                padding-top: 1.05rem;
+                padding-bottom: 1.05rem;
+            }
+        }
+    </style>
+
+    <div class="d-flex justify-content-between align-items-center mb-4 users-toolbar">
         <h2 class="page-title mb-0 fw-bolder">User Management</h2>
-        <a href="{{ route('users.create') }}" class="btn btn-primary">
+        <a href="{{ route('users.create') }}" class="btn btn-primary users-create-btn">
             <i class="fa-solid fa-plus me-1"></i> Add New User
         </a>
     </div>
@@ -26,7 +45,7 @@
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-hover mb-0 users-table">
                     <thead class="bg-light">
                         <tr>
                             <th class="fw-bolder text-dark">Name</th>

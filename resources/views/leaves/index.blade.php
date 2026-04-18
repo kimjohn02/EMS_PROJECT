@@ -2,7 +2,119 @@
 @section('title', 'Leave Requests')
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <style>
+        .leaves-toolbar {
+            gap: 12px;
+        }
+
+        .leaves-filter-form {
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        .leaves-filter-select {
+            width: auto;
+            height: 50px;
+            font-size: 1.1rem;
+        }
+
+        .leaves-table {
+            min-width: 760px;
+        }
+
+        .leave-reason-cell {
+            max-width: 200px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .leave-actions {
+            white-space: nowrap;
+        }
+
+        .leave-view-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .leave-view-btn i {
+            font-size: 0.95rem;
+        }
+
+        .leave-status-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: default;
+            user-select: none;
+        }
+
+        .leave-status-btn.approved {
+            color: #166534;
+            background-color: #dcfce7;
+            border-color: #86efac;
+        }
+
+        .leave-status-btn.pending {
+            color: #92400e;
+            background-color: #fef9c3;
+            border-color: #fde68a;
+        }
+
+        .leave-action-group {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: nowrap;
+        }
+
+        @media (max-width: 767.98px) {
+            .leaves-toolbar {
+                flex-direction: column;
+                align-items: stretch !important;
+            }
+
+            .leaves-filter-form {
+                justify-content: stretch;
+                align-items: stretch !important;
+                width: 100%;
+            }
+
+            .leaves-filter-form .app-search-group {
+                max-width: 100%;
+            }
+
+            .leaves-filter-select {
+                width: 100%;
+                font-size: 1rem;
+                height: 44px;
+            }
+
+            .leaves-table th,
+            .leaves-table td {
+                font-size: 0.93rem;
+                padding: 0.8rem 0.55rem;
+            }
+
+            .leave-reason-cell {
+                max-width: 140px;
+            }
+        }
+    </style>
+
+    <div class="d-flex justify-content-between align-items-center mb-4 leaves-toolbar">
         <h2 class="page-title mb-0 fw-bolder">Manage Leaves</h2>
         @if(auth()->user()->role === 'employee')
         <a href="{{ route('leaves.create') }}" class="btn btn-primary"><i class="fa-solid fa-plus me-1"></i> Apply for Leave</a>
@@ -11,8 +123,8 @@
 
     <div class="card shadow-sm">
         <div class="card-header bg-white d-flex flex-wrap justify-content-between align-items-center py-3">
-            <form action="{{ route('leaves.index') }}" method="GET" class="d-flex ms-auto flex-wrap gap-2 align-items-center">
-                <select name="status" class="form-select" style="width: auto; height: 50px; font-size: 1.1rem;" onchange="this.form.submit()">
+            <form action="{{ route('leaves.index') }}" method="GET" class="d-flex ms-auto flex-wrap gap-2 align-items-center leaves-filter-form">
+                <select name="status" class="form-select leaves-filter-select" onchange="this.form.submit()">
                     <option value="">All Statuses</option>
                     <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
                     <option value="approved" {{ request('status') === 'approved' ? 'selected' : '' }}>Approved</option>
@@ -20,7 +132,7 @@
                 </select>
                 
                 @if(auth()->user()->role !== 'employee')
-                <div class="input-group app-search-group" style="width: 350px;">
+                <div class="input-group app-search-group">
                     <input type="text" name="search" class="form-control" placeholder="Search employee..." value="{{ request('search') }}">
                     <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-search"></i></button>
                     @if(request('search') || request('status'))
@@ -32,16 +144,16 @@
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-hover mb-0 leaves-table">
                     <thead class="bg-light">
                         <tr>
-                            <th class="text-uppercase text-dark font-weight-bold">ID</th>
+                            <th class="text-uppercase text-dark font-weight-bold d-none d-lg-table-cell">ID</th>
                             @if(auth()->user()->role !== 'employee')
-                            <th class="text-uppercase text-dark font-weight-bold">Employee Name</th>
+                            <th class="text-uppercase text-dark font-weight-bold d-none d-md-table-cell">Employee Name</th>
                             @endif
-                            <th class="text-uppercase text-dark font-weight-bold">Type</th>
-                            <th class="text-uppercase text-dark font-weight-bold">Start Date</th>
-                            <th class="text-uppercase text-dark font-weight-bold">End Date</th>
+                            <th class="text-uppercase text-dark font-weight-bold d-none d-sm-table-cell">Type</th>
+                            <th class="text-uppercase text-dark font-weight-bold d-none d-lg-table-cell">Start Date</th>
+                            <th class="text-uppercase text-dark font-weight-bold d-none d-lg-table-cell">End Date</th>
                             <th class="text-uppercase text-dark font-weight-bold">Reason</th>
                             <th class="text-uppercase text-dark font-weight-bold">Status</th>
                             <th class="text-end text-uppercase text-dark font-weight-bold">Action</th>
@@ -50,14 +162,14 @@
                     <tbody>
                         @forelse($leaves as $leave)
                             <tr>
-                                <td class="fw-normal">{{ $leave->id }}</td>
+                                <td class="fw-normal d-none d-lg-table-cell">{{ $leave->id }}</td>
                                 @if(auth()->user()->role !== 'employee')
-                                <td class="fw-normal">{{ $leave->user->name }}</td>
+                                <td class="fw-normal d-none d-md-table-cell">{{ $leave->user->name }}</td>
                                 @endif
-                                <td class="fw-normal"><span class="text-capitalize">{{ $leave->type }}</span></td>
-                                <td class="fw-normal">{{ $leave->start_date->format('M d, Y') }}</td>
-                                <td class="fw-normal">{{ $leave->end_date->format('M d, Y') }}</td>
-                                <td class="fw-normal" style="max-width: 200px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="{{ $leave->reason }}">
+                                <td class="fw-normal d-none d-sm-table-cell"><span class="text-capitalize">{{ $leave->type }}</span></td>
+                                <td class="fw-normal d-none d-lg-table-cell">{{ $leave->start_date->format('M d, Y') }}</td>
+                                <td class="fw-normal d-none d-lg-table-cell">{{ $leave->end_date->format('M d, Y') }}</td>
+                                <td class="fw-normal leave-reason-cell" title="{{ $leave->reason }}">
                                     {{ $leave->reason }}
                                 </td>
                                 <td>
@@ -69,34 +181,21 @@
                                         <span class="badge-status badge-late">Pending</span>
                                     @endif
                                 </td>
-                                <td class="text-end">
-                                    @if(auth()->user()->role !== 'employee')
-                                        @if($leave->status === 'pending')
-                                        <form action="{{ route('leaves.updateStatus', $leave->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="hidden" name="status" value="approved">
-                                            <button type="submit" class="btn btn-sm rounded-3 me-2" title="Approve" style="background-color: #ecfdf5; color: #059669; border: 1px solid #10b981;"><i class="fa-solid fa-check"></i></button>
-                                        </form>
-                                        <form action="{{ route('leaves.updateStatus', $leave->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="hidden" name="status" value="rejected">
-                                            <button type="submit" class="btn btn-sm rounded-3" title="Reject" style="background-color: #fef2f2; color: #dc2626; border: 1px solid #ef4444;"><i class="fa-solid fa-xmark"></i></button>
-                                        </form>
+                                <td class="text-end leave-actions">
+                                    @if(auth()->user()->role === 'employee')
+                                        @if($leave->status === 'approved')
+                                            <span class="leave-status-btn approved"><i class="fa-solid fa-check"></i> Approved</span>
+                                        @elseif($leave->status === 'rejected')
+                                            <a href="{{ route('leaves.show', $leave) }}" class="btn btn-sm leave-view-btn" title="View Rejection Reason" style="color: #2563eb; border: 1px solid #2563eb; background-color: #eff6ff;">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
                                         @else
-                                            <span class="text-muted"><i class="fa-solid fa-lock" style="color: #94a3b8;"></i></span>
+                                            <span class="leave-status-btn pending"><i class="fa-regular fa-clock"></i> Pending</span>
                                         @endif
                                     @else
-                                        @if($leave->status === 'pending' && $leave->user_id === auth()->id())
-                                        <form action="{{ route('leaves.cancel', $leave->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Cancel this leave request?')">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Cancel Request"><i class="fa-solid fa-ban me-1"></i>Cancel</button>
-                                        </form>
-                                        @else
-                                            <span class="text-muted">—</span>
-                                        @endif
+                                        <a href="{{ route('leaves.show', $leave) }}" class="btn btn-sm leave-view-btn" title="View Details" style="color: #2563eb; border: 1px solid #2563eb; background-color: #eff6ff;">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </a>
                                     @endif
                                 </td>
                             </tr>

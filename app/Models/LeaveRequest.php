@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $end_date
  * @property string $reason
  * @property string $status
+ * @property string|null $rejection_reason
  */
 class LeaveRequest extends Model
 {
@@ -25,7 +26,8 @@ class LeaveRequest extends Model
         'start_date', 
         'end_date', 
         'reason', 
-        'status'
+        'status',
+        'rejection_reason'
     ];
 
     protected $casts = [

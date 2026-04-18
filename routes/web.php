@@ -71,6 +71,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/leaves', [App\Http\Controllers\LeaveRequestController::class, 'index'])->name('leaves.index');
     Route::get('/leaves/create', [App\Http\Controllers\LeaveRequestController::class, 'create'])->name('leaves.create');
     Route::post('/leaves', [App\Http\Controllers\LeaveRequestController::class, 'store'])->name('leaves.store');
+    Route::get('/leaves/{leave}', [App\Http\Controllers\LeaveRequestController::class, 'show'])->name('leaves.show');
     Route::patch('/leaves/{leave}/status', [App\Http\Controllers\LeaveRequestController::class, 'updateStatus'])->name('leaves.updateStatus');
     Route::patch('/leaves/{leave}/cancel', [App\Http\Controllers\LeaveRequestController::class, 'cancel'])->name('leaves.cancel');
     

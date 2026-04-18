@@ -4,10 +4,40 @@
 @section('content')
     <h2 class="page-title">Dashboard Overview</h2>
 
+    <style>
+        .dashboard-metric-value {
+            display: block;
+            width: 100%;
+            text-align: right;
+            line-height: 1.1;
+        }
+
+        .dashboard-metric-label {
+            display: block;
+            width: 100%;
+            text-align: right;
+        }
+
+        @media (max-width: 991.98px) {
+            .dashboard-metric-value {
+                font-size: 1.9rem;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .dashboard-metric-label {
+                white-space: normal;
+                line-height: 1.2;
+            }
+
+            .dashboard-metric-value {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+
     @if($user->isEmployee())
-        <!-- EMPLOYEE DASHBOARD -->
         <div class="row mb-4">
-            <!-- Attendance Rate Card -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <a href="{{ route('attendance.index') }}" class="text-decoration-none d-block h-100" style="color: inherit;">
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #10b981;">
@@ -17,10 +47,10 @@
                                     <i class="fa-solid fa-chart-pie fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1 dashboard-metric-label"
                                         style="font-size: 0.8rem; font-weight: 700;">
                                         Attendance Rate (This Month)</div>
-                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $employeeAttendanceRate }}%</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $employeeAttendanceRate }}%</div>
                                 </div>
                             </div>
                         </div>
@@ -28,7 +58,6 @@
                 </a>
             </div>
 
-            <!-- Hours Worked Card -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <a href="{{ route('attendance.index') }}" class="text-decoration-none d-block h-100" style="color: inherit;">
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #3b82f6;">
@@ -38,10 +67,10 @@
                                     <i class="fa-solid fa-hourglass-end fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 dashboard-metric-label"
                                         style="font-size: 0.8rem; font-weight: 700;">
                                         Hours Worked (This Month)</div>
-                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $employeeHoursWorked }} hrs</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $employeeHoursWorked }} hrs</div>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +78,6 @@
                 </a>
             </div>
 
-            <!-- Leave Balance Card -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <a href="{{ route('leaves.create') }}" class="text-decoration-none d-block h-100" style="color: inherit;">
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #f59e0b;">
@@ -59,10 +87,10 @@
                                     <i class="fa-solid fa-plane fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 dashboard-metric-label"
                                         style="font-size: 0.8rem; font-weight: 700;">
                                         Vacation Days Left</div>
-                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $leaveBalance['vacation'] }}</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $leaveBalance['vacation'] }}</div>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +98,6 @@
                 </a>
             </div>
 
-            <!-- Pending Requests Card -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <a href="{{ route('leaves.index') }}" class="text-decoration-none d-block h-100" style="color: inherit;">
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #8b5cf6;">
@@ -80,10 +107,10 @@
                                     <i class="fa-solid fa-clock fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1"
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1 dashboard-metric-label"
                                         style="font-size: 0.8rem; font-weight: 700; color: #8b5cf6;">
                                         Pending Requests</div>
-                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $myPendingLeaves }}</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $myPendingLeaves }}</div>
                                 </div>
                             </div>
                         </div>
@@ -92,9 +119,7 @@
             </div>
         </div>
 
-        <!-- Employee Analytics Section -->
         <div class="row">
-            <!-- Weekly Attendance Chart -->
             <div class="col-lg-8 mb-4">
                 <div class="card shadow-sm h-100">
                     <div class="card-header d-flex flex-row align-items-center justify-content-between text-primary">
@@ -134,7 +159,6 @@
                 </div>
             </div>
 
-            <!-- Quick Info Card -->
             <div class="col-lg-4 mb-4">
                 <div class="card shadow-sm h-100">
                     <div class="card-header bg-white">
@@ -166,7 +190,6 @@
             </div>
         </div>
 
-        <!-- Quick Actions -->
         <div class="row mt-4">
             <div class="col-12">
                 <h6 class="mb-3 font-weight-bold">Quick Actions</h6>
@@ -248,9 +271,26 @@
                 padding-top: 0.95rem;
                 padding-bottom: 0.95rem;
             }
+
+            @media (max-width: 575.98px) {
+                .stat-card-label {
+                    white-space: normal;
+                    overflow: visible;
+                    text-overflow: unset;
+                    line-height: 1.2;
+                }
+
+                .stat-card-link .row {
+                    flex-wrap: nowrap;
+                    align-items: flex-start;
+                }
+
+                .stat-card-link .col-auto {
+                    margin-top: 2px;
+                }
+            }
         </style>
         <div class="row mb-3">
-            <!-- Present Today -->
             <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
                 <a href="{{ route('attendance.index') }}" class="stat-card-link">
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #10b981;">
@@ -260,9 +300,9 @@
                                     <i class="fa-solid fa-user-check fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1 stat-card-label">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1 stat-card-label dashboard-metric-label">
                                         Present Today</div>
-                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $presentToday }}</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $presentToday }}</div>
                                 </div>
                             </div>
                         </div>
@@ -270,7 +310,6 @@
                 </a>
             </div>
 
-            <!-- Absent Today -->
             <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
                 <a href="{{ route('attendance.index') }}" class="stat-card-link">
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #ef4444;">
@@ -280,9 +319,9 @@
                                     <i class="fa-solid fa-user-xmark fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1 stat-card-label">
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1 stat-card-label dashboard-metric-label">
                                         Absent Today</div>
-                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $absentToday }}</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $absentToday }}</div>
                                 </div>
                             </div>
                         </div>
@@ -290,7 +329,6 @@
                 </a>
             </div>
 
-            <!-- Late Today -->
             <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
                 <a href="{{ route('attendance.index') }}" class="stat-card-link">
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #f59e0b;">
@@ -300,9 +338,9 @@
                                     <i class="fa-solid fa-hourglass-end fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 stat-card-label">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 stat-card-label dashboard-metric-label">
                                         Late Today</div>
-                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $lateToday }}</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $lateToday }}</div>
                                 </div>
                             </div>
                         </div>
@@ -310,7 +348,6 @@
                 </a>
             </div>
 
-            <!-- Total Employees -->
             <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
                 <a href="{{ route('employees.index') }}" class="stat-card-link">
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #3b82f6;">
@@ -320,9 +357,9 @@
                                     <i class="fa-solid fa-users fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 stat-card-label">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 stat-card-label dashboard-metric-label">
                                         Total Employees</div>
-                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $totalEmployees }}</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $totalEmployees }}</div>
                                 </div>
                             </div>
                         </div>
@@ -330,7 +367,6 @@
                 </a>
             </div>
 
-            <!-- Departments -->
             <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
                 <a href="{{ route('departments.index') }}" class="stat-card-link">
                     <div class="card shadow-sm h-100" style="border-left: 4px solid #f59e0b;">
@@ -340,9 +376,9 @@
                                     <i class="fa-solid fa-building fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 stat-card-label">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 stat-card-label dashboard-metric-label">
                                         Departments</div>
-                                    <div class="h3 mb-0 font-weight-bold text-dark">{{ $totalDepartments }}</div>
+                                    <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $totalDepartments }}</div>
                                 </div>
                             </div>
                         </div>
@@ -350,7 +386,6 @@
                 </a>
             </div>
 
-            <!-- Pending Leaves -->
             @if($user->role === 'admin' || $user->role === 'hr')
                 <div class="col-xl-2 col-lg-4 col-md-6 mb-4">
                     <a href="{{ route('leaves.index') }}" class="stat-card-link">
@@ -361,9 +396,9 @@
                                         <i class="fa-solid fa-clock fa-2x text-muted" style="opacity: 0.3;"></i>
                                     </div>
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1 stat-card-label"
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1 stat-card-label dashboard-metric-label"
                                             style="color: #8b5cf6;">Pending Leaves</div>
-                                        <div class="h3 mb-0 font-weight-bold text-dark">{{ $pendingLeaves }}</div>
+                                        <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $pendingLeaves }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -375,7 +410,6 @@
 
         @if($user->role === 'admin' || $user->role === 'hr')
             <div class="row hr-layout-row">
-                <!-- Attendance Chart -->
                 <div class="col-lg-8 mb-4">
                     <div class="card shadow-sm h-100">
                         <div class="card-header bg-white">
@@ -387,7 +421,6 @@
                     </div>
                 </div>
 
-                <!-- Department Breakdown -->
                 @if($user->role === 'admin')
                     <div class="col-lg-4 mb-4">
                         <div class="card shadow-sm h-100">
@@ -446,7 +479,6 @@
                     </div>
                 @endif
 
-                <!-- Recent Leave Requests -->
                 <div class="{{ $user->role === 'hr' ? 'col-12' : 'col-lg-8' }} mb-4 hr-layout-card-col">
                     <div class="card shadow-sm hr-layout-card">
                         <div class="card-header bg-white d-flex justify-content-between align-items-center">
@@ -486,7 +518,6 @@
                     </div>
                 </div>
 
-                <!-- Today's Summary -->
                 @if($user->role === 'admin')
                 <div class="col-lg-4 mb-4 hr-layout-card-col">
                     <div class="card shadow-sm h-100 hr-layout-card">

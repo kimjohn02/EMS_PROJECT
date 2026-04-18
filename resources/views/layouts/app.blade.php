@@ -5,29 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMS Dashboard - @yield('title')</title>
     
-    <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Bootstrap 5 CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- FontAwesome for Icons -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
             --primary-bg: #f4f7fb;
-            --sidebar-bg: #ffffff; /* Light theme sidebar */
+            --sidebar-bg: #ffffff;
             --sidebar-hover: #f1f5f9;
             --text-dark: #334155;
             --text-muted: #64748b;
-            --accent-color: #2563eb; /* Blue matching the login logo and button */
-            --active-text: #ffffff; /* White text on blue background */
+            --accent-color: #2563eb;
+            --active-text: #ffffff;
             --active-icon: #ffffff;
-            --brand-text: #0f172a; /* Dark navy/slate from 'Welcome Back' */
+            --brand-text: #0f172a;
             --white: #ffffff;
         }
 
@@ -38,14 +34,16 @@
             overflow-x: hidden;
         }
 
-        /* Layout Structure */
         #wrapper {
             display: flex;
             width: 100%;
             height: 100vh;
         }
 
-        /* Sidebar Styling */
+        .sidebar-backdrop {
+            display: none;
+        }
+
         #sidebar {
             width: 260px;
             background-color: var(--sidebar-bg);
@@ -54,6 +52,18 @@
             flex-direction: column;
             transition: all 0.3s;
             border-right: 1px solid #e2e8f0;
+        }
+
+        .mobile-sidebar-toggle {
+            display: none;
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #fff;
+            color: #475569;
         }
 
         .sidebar-header {
@@ -116,7 +126,7 @@
             padding: 13px 18px;
             color: #475569;
             text-decoration: none;
-            border-radius: 8px; /* matching pill shape */
+            border-radius: 8px;
             transition: all 0.2s ease;
             font-weight: 600;
             font-size: 1.05rem;
@@ -175,7 +185,6 @@
             color: #dc2626;
         }
         
-        /* Bottom Profile Section */
         .sidebar-profile {
             padding: 15px 20px;
             border-top: 1px solid #e2e8f0;
@@ -193,8 +202,8 @@
         .sidebar-profile .user-avatar {
             width: 38px;
             height: 38px;
-            background-color: #eff6ff; /* light blue accent bg */
-            color: #2563eb; /* bold blue text */
+            background-color: #eff6ff;
+            color: #2563eb;
             border: 2px solid var(--accent-color);
             border-radius: 50%;
             display: flex;
@@ -227,7 +236,6 @@
             font-size: 0.8rem;
         }
 
-        /* Main Content Area */
         #content-wrapper {
             flex-grow: 1;
             display: flex;
@@ -235,16 +243,174 @@
             overflow-y: auto;
         }
 
-        /* Top Navbar */
         .topbar {
             background-color: var(--white);
             height: 70px;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
-            justify-content: flex-end;
+            justify-content: space-between;
             padding: 0 30px;
             z-index: 10;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .topbar-notification {
+            margin-right: 2px;
+        }
+
+        .notification-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            padding: 6px;
+            color: #64748b;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .notification-trigger:hover,
+        .notification-trigger:focus {
+            background-color: #f1f5f9;
+            color: #475569;
+        }
+
+        .topbar-user-dropdown {
+            padding: 6px 10px;
+            border-radius: 12px;
+            gap: 6px;
+        }
+
+        .topbar-user-dropdown .user-meta {
+            padding-right: 4px;
+            gap: 1px;
+        }
+
+        @media (max-width: 991.98px) {
+            #wrapper {
+                height: auto;
+                min-height: 100vh;
+            }
+
+            #sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: min(72vw, 240px);
+                transform: translateX(-100%);
+                z-index: 1045;
+                box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+            }
+
+            .sidebar-header {
+                padding: 14px 12px;
+                gap: 4px;
+            }
+
+            .sidebar-header .logo-icon-large i {
+                font-size: 2.2rem;
+            }
+
+            .sidebar-header .brand-title {
+                font-size: 1.25rem;
+                letter-spacing: 3px;
+            }
+
+            .sidebar-menu {
+                padding: 10px 10px;
+            }
+
+            .sidebar-link {
+                padding: 10px 12px;
+                font-size: 0.95rem;
+                margin-bottom: 2px;
+            }
+
+            .sidebar-link i {
+                width: 24px;
+                font-size: 1rem;
+                margin-right: 6px;
+            }
+
+            body.sidebar-open #sidebar {
+                transform: translateX(0);
+            }
+
+            .sidebar-backdrop {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(15, 23, 42, 0.42);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease;
+                z-index: 1040;
+            }
+
+            body.sidebar-open .sidebar-backdrop {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            #content-wrapper {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .mobile-sidebar-toggle {
+                display: inline-flex;
+            }
+
+            .topbar {
+                padding: 0 14px;
+            }
+
+            .topbar-actions {
+                gap: 8px;
+            }
+
+            .topbar-user-dropdown {
+                padding: 6px 8px;
+            }
+
+            .topbar-user-dropdown .user-meta {
+                max-width: 104px;
+            }
+
+            .topbar-user-dropdown .user-meta span {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
+            }
+
+            .topbar-notification .dropdown-menu {
+                width: min(92vw, 320px) !important;
+            }
+
+            .page-content {
+                padding: 18px 14px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            #sidebar {
+                width: min(76vw, 228px);
+            }
+
+            .topbar-user-dropdown .user-meta {
+                display: none !important;
+            }
         }
 
         .user-profile {
@@ -266,7 +432,6 @@
             font-weight: bold;
         }
 
-        /* Page Content */
         .page-content {
             padding: 30px;
         }
@@ -278,7 +443,6 @@
             color: var(--text-dark);
         }
 
-        /* Cards */
         .card {
             border: none;
             border-radius: 12px;
@@ -294,7 +458,6 @@
             border-radius: 12px 12px 0 0 !important;
         }
 
-        /* Tables */
         .table-responsive {
             background: white;
             border-radius: 12px;
@@ -328,7 +491,8 @@
         }
 
         .app-search-group {
-            width: 350px !important;
+            width: 100%;
+            max-width: 350px;
         }
 
         .app-search-group .form-control,
@@ -339,6 +503,18 @@
 
         .app-search-group .form-control::placeholder {
             font-size: 1rem;
+        }
+
+        @media (max-width: 575.98px) {
+            .app-search-group {
+                max-width: 100%;
+            }
+
+            .app-search-group .form-control,
+            .app-search-group .btn {
+                height: 44px;
+                font-size: 1rem;
+            }
         }
 
         .badge-status {
@@ -360,7 +536,6 @@
 <body>
 
     <div id="wrapper">
-        <!-- Sidebar -->
         <nav id="sidebar">
             <div class="sidebar-header">
                 <div class="logo-icon-large">
@@ -445,9 +620,9 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
         <div id="content-wrapper">
-            <!-- Topbar (Hidden or kept minimal based on need) -->
 @php
     $user = auth()->user();
     $notifications = collect();
@@ -499,12 +674,16 @@
     }
 @endphp
 
-            <div class="topbar" style="height: 60px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: flex-end; padding: 0 30px;">
+            <div class="topbar" style="height: 60px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center;">
+                <button type="button" class="mobile-sidebar-toggle" id="mobileSidebarToggle" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="topbar-actions">
                 
-                <!-- Notification Bell -->
-                <div class="dropdown me-4">
-                    <a class="text-secondary position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.3rem;">
-                        <i class="fa-regular fa-bell"></i>
+                <div class="dropdown topbar-notification">
+                    <a class="notification-trigger position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.3rem;">
+                        <i class="fa-solid fa-bell"></i>
                         @if($unreadCount > 0)
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.55rem; padding: 0.25em 0.4em;">
                             {{ $unreadCount }}
@@ -548,13 +727,12 @@
                     </div>
                 </div>
 
-                <!-- User Profile info at topbar -->
                 <div class="dropdown">
-                    <div class="d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="d-flex align-items-center topbar-user-dropdown" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="rounded-circle d-flex justify-content-center align-items-center text-white me-2 shadow-sm" style="width: 42px; height: 42px; background-color: #1e3a8a; font-weight: 600; font-size: 1.05rem;">
                             {{ $user->name === 'System Admin' ? 'AU' : strtoupper(substr($user->name, 0, 2)) }}
                         </div>
-                        <div class="d-flex flex-column justify-content-center pe-2">
+                        <div class="d-flex flex-column justify-content-center user-meta">
                             <span class="fw-bold" style="color: #1e3a8a; font-size: 0.95rem; line-height: 1.2;">{{ $user->name === 'System Admin' ? 'Admin User' : $user->name }}</span>
                             <span class="text-muted" style="font-size: 0.78rem; text-transform: capitalize; line-height: 1;">{{ $user->role }}</span>
                         </div>
@@ -564,10 +742,10 @@
                         <li><a class="dropdown-item py-2" href="{{ route('profile.index') }}"><i class="fa-solid fa-gear me-2 text-muted"></i> Settings</a></li>
                     </ul>
                 </div>
+                </div>
 
             </div>
 
-            <!-- Page Content -->
             <div class="page-content">
                 
                 @if(session('success'))
@@ -589,8 +767,49 @@
         </div>
     </div>
 
-    <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function () {
+            const body = document.body;
+            const toggleBtn = document.getElementById('mobileSidebarToggle');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const sidebarLinks = document.querySelectorAll('#sidebar .sidebar-link');
+
+            if (!toggleBtn || !backdrop) {
+                return;
+            }
+
+            const closeSidebar = function () {
+                body.classList.remove('sidebar-open');
+            };
+
+            toggleBtn.addEventListener('click', function () {
+                body.classList.toggle('sidebar-open');
+            });
+
+            backdrop.addEventListener('click', closeSidebar);
+
+            sidebarLinks.forEach(function (link) {
+                link.addEventListener('click', function () {
+                    if (window.innerWidth <= 991.98) {
+                        closeSidebar();
+                    }
+                });
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 991.98) {
+                    closeSidebar();
+                }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeSidebar();
+                }
+            });
+        })();
+    </script>
     
     @yield('scripts')
 </body>

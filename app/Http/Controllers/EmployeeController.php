@@ -15,7 +15,7 @@ class EmployeeController extends Controller
 {
     public function index(Request $request)
     {
-        // Admin and HR can access, hiding inactive
+    
         $query = Employee::with(['user', 'department'])->where('status', '!=', 'inactive');
         
         if ($request->has('search') && $request->search !== '') {
@@ -136,7 +136,6 @@ class EmployeeController extends Controller
         return view('employees.archived', compact('employees'));
     }
 
-    // Restore employee — sets status back to active
     public function restore(Employee $employee)
     {
         $employee->update(['status' => 'active']);
