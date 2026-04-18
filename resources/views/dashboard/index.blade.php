@@ -29,6 +29,7 @@
             text-align: right;
             line-height: 1.1;
             margin-bottom: 0 !important;
+            font-size: 1.5rem !important;
         }
 
         /* Adjust the height of the dashboard summary cards */
