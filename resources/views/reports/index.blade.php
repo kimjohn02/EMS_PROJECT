@@ -35,24 +35,24 @@
     <div class="row mb-4">
         <div class="col-md-4">
             <div class="card bg-success text-white">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fa-solid fa-check-circle me-2"></i>Present</h5>
+                <div class="card-body d-flex justify-content-between align-items-center py-3">
+                    <h5 class="card-title mb-0"><i class="fa-solid fa-check-circle me-2"></i>Present</h5>
                     <h2 class="display-5 fw-bold mb-0">{{ $presentCount }}</h2>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card bg-warning text-dark">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fa-solid fa-clock-rotate-left me-2"></i>Late</h5>
+                <div class="card-body d-flex justify-content-between align-items-center py-3">
+                    <h5 class="card-title mb-0"><i class="fa-solid fa-clock-rotate-left me-2"></i>Late</h5>
                     <h2 class="display-5 fw-bold mb-0">{{ $lateCount }}</h2>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card bg-danger text-white">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fa-solid fa-xmark-circle me-2"></i>Absent</h5>
+                <div class="card-body d-flex justify-content-between align-items-center py-3">
+                    <h5 class="card-title mb-0"><i class="fa-solid fa-xmark-circle me-2"></i>Absent</h5>
                     <h2 class="display-5 fw-bold mb-0">{{ $absentCount }}</h2>
                 </div>
             </div>

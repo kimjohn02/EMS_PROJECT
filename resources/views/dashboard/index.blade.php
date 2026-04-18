@@ -5,33 +5,69 @@
     <h2 class="page-title">Dashboard Overview</h2>
 
     <style>
-        .dashboard-metric-value {
-            display: block;
+        .dashboard-metric-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             width: 100%;
-            text-align: right;
-            line-height: 1.1;
+            padding-left: 0.25rem;
         }
 
         .dashboard-metric-label {
-            display: block;
-            width: 100%;
+            text-align: left;
+            margin-bottom: 0 !important;
+            padding-right: 4px;
+            white-space: normal !important;
+            word-break: keep-all; /* Prevent breaking mid-word */
+            hyphens: none;
+            line-height: 1.1;
+            font-size: 0.7rem !important; 
+            letter-spacing: -0.2px;
+        }
+
+        .dashboard-metric-value {
             text-align: right;
+            line-height: 1.1;
+            margin-bottom: 0 !important;
+        }
+
+        /* Adjust the height of the dashboard summary cards */
+        .col-xl-3 .card-body,
+        .col-xl-2 .card-body {
+            padding-top: 1.15rem !important;
+            padding-bottom: 1.15rem !important;
+            padding-left: 0.6rem !important;  /* Reduced side padding for more width */
+            padding-right: 0.6rem !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Adjust icons and numbers for extreme 6-card layout */
+        .col-xl-2 .fa-2x {
+            font-size: 1.25em !important;
+            margin-right: 0.25rem !important;
+        }
+        
+        .col-xl-2 .dashboard-metric-value {
+            font-size: 1.4rem !important;
+        }
+
+        .col-xl-3 .card-body > .row,
+        .col-xl-2 .card-body > .row {
+            width: 100%;
+            margin: 0;
+            flex-wrap: nowrap; /* Force row to stay on one line */
         }
 
         @media (max-width: 991.98px) {
             .dashboard-metric-value {
-                font-size: 1.9rem;
+                font-size: 1.6rem;
             }
         }
 
         @media (max-width: 575.98px) {
-            .dashboard-metric-label {
-                white-space: normal;
-                line-height: 1.2;
-            }
-
             .dashboard-metric-value {
-                font-size: 1.7rem;
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -46,7 +82,7 @@
                                 <div class="col-auto">
                                     <i class="fa-solid fa-chart-pie fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
-                                <div class="col mr-2">
+                                <div class="col mr-2 dashboard-metric-container">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1 dashboard-metric-label"
                                         style="font-size: 0.8rem; font-weight: 700;">
                                         Attendance Rate (This Month)</div>
@@ -66,7 +102,7 @@
                                 <div class="col-auto">
                                     <i class="fa-solid fa-hourglass-end fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
-                                <div class="col mr-2">
+                                <div class="col mr-2 dashboard-metric-container">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 dashboard-metric-label"
                                         style="font-size: 0.8rem; font-weight: 700;">
                                         Hours Worked (This Month)</div>
@@ -86,7 +122,7 @@
                                 <div class="col-auto">
                                     <i class="fa-solid fa-plane fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
-                                <div class="col mr-2">
+                                <div class="col mr-2 dashboard-metric-container">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 dashboard-metric-label"
                                         style="font-size: 0.8rem; font-weight: 700;">
                                         Vacation Days Left</div>
@@ -106,7 +142,7 @@
                                 <div class="col-auto">
                                     <i class="fa-solid fa-clock fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
-                                <div class="col mr-2">
+                                <div class="col mr-2 dashboard-metric-container">
                                     <div class="text-xs font-weight-bold text-uppercase mb-1 dashboard-metric-label"
                                         style="font-size: 0.8rem; font-weight: 700; color: #8b5cf6;">
                                         Pending Requests</div>
@@ -299,7 +335,7 @@
                                 <div class="col-auto">
                                     <i class="fa-solid fa-user-check fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
-                                <div class="col mr-2">
+                                <div class="col mr-2 dashboard-metric-container">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1 stat-card-label dashboard-metric-label">
                                         Present Today</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $presentToday }}</div>
@@ -318,7 +354,7 @@
                                 <div class="col-auto">
                                     <i class="fa-solid fa-user-xmark fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
-                                <div class="col mr-2">
+                                <div class="col mr-2 dashboard-metric-container">
                                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1 stat-card-label dashboard-metric-label">
                                         Absent Today</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $absentToday }}</div>
@@ -337,7 +373,7 @@
                                 <div class="col-auto">
                                     <i class="fa-solid fa-hourglass-end fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
-                                <div class="col mr-2">
+                                <div class="col mr-2 dashboard-metric-container">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 stat-card-label dashboard-metric-label">
                                         Late Today</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $lateToday }}</div>
@@ -356,7 +392,7 @@
                                 <div class="col-auto">
                                     <i class="fa-solid fa-users fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
-                                <div class="col mr-2">
+                                <div class="col mr-2 dashboard-metric-container">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 stat-card-label dashboard-metric-label">
                                         Total Employees</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $totalEmployees }}</div>
@@ -375,7 +411,7 @@
                                 <div class="col-auto">
                                     <i class="fa-solid fa-building fa-2x text-muted" style="opacity: 0.3;"></i>
                                 </div>
-                                <div class="col mr-2">
+                                <div class="col mr-2 dashboard-metric-container">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 stat-card-label dashboard-metric-label">
                                         Departments</div>
                                     <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $totalDepartments }}</div>
@@ -395,7 +431,7 @@
                                     <div class="col-auto">
                                         <i class="fa-solid fa-clock fa-2x text-muted" style="opacity: 0.3;"></i>
                                     </div>
-                                    <div class="col mr-2">
+                                    <div class="col mr-2 dashboard-metric-container">
                                         <div class="text-xs font-weight-bold text-uppercase mb-1 stat-card-label dashboard-metric-label"
                                             style="color: #8b5cf6;">Pending Leaves</div>
                                         <div class="h3 mb-0 font-weight-bold text-dark dashboard-metric-value">{{ $pendingLeaves }}</div>
