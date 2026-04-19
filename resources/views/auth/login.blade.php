@@ -61,6 +61,10 @@
             border-color: #2563eb;
             box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.25);
         }
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-ms-clear {
+            display: none;
+        }
         .btn-primary {
             background-color: #2563eb;
             border-color: #2563eb;

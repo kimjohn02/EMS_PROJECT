@@ -46,6 +46,7 @@
 
                     @if(isset($user))
                     <div class="mb-3 form-check form-switch">
+                        <input type="hidden" name="is_active" value="0">
                         <input class="form-check-input" type="checkbox" role="switch" id="is_active" name="is_active" value="1" {{ old('is_active', $user->is_active ?? true) ? 'checked' : '' }}>
                         <label class="form-check-label fw-semibold" for="is_active">Account Active</label>
                     </div>

@@ -34,6 +34,7 @@
                         
                         @if(isset($department))
                         <div class="mb-4 form-check form-switch">
+                            <input type="hidden" name="is_active" value="0">
                             <input class="form-check-input" type="checkbox" role="switch" id="statusSwitch" name="is_active" value="1" {{ $department->is_active ? 'checked' : '' }}>
                             <label class="form-check-label ms-2 text-muted fw-semibold" style="font-size: 0.85rem;" for="statusSwitch">Department is Active</label>
                         </div>

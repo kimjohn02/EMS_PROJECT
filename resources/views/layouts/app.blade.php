@@ -497,12 +497,12 @@
 
         .app-search-group .form-control,
         .app-search-group .btn {
-            height: 50px;
-            font-size: 1.1rem;
+            height: 38px;
+            font-size: 0.95rem;
         }
 
         .app-search-group .form-control::placeholder {
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 575.98px) {
@@ -512,8 +512,8 @@
 
             .app-search-group .form-control,
             .app-search-group .btn {
-                height: 44px;
-                font-size: 1rem;
+                height: 38px;
+                font-size: 0.9rem;
             }
         }
 

@@ -1,4 +1,4 @@
-    @extends('layouts.app')
+@extends('layouts.app')
 @section('title', 'Attendance Tracking')
 
 @section('content')
@@ -14,12 +14,14 @@
                 <div class="card shadow-sm text-center">
                     <div class="card-body p-5">
                         <h4 class="mb-2 fw-bold text-dark">{{ \Carbon\Carbon::now()->format('l, F j, Y') }}</h4>
-                        <div class="display-4 fw-bold text-primary mb-4" id="clock">{{ \Carbon\Carbon::now()->format('H:i:s') }}</div>
+                        <div class="display-4 fw-bold text-primary mb-4" id="clock">{{ \Carbon\Carbon::now()->format('H:i:s') }}
+                        </div>
 
                         @if($todayAttendance)
                             @if($todayAttendance->time_in && !$todayAttendance->time_out)
                                 <div class="alert alert-success mt-3 mb-4 d-inline-block">
-                                    <i class="fa-solid fa-check-circle me-1"></i> Timed In at {{ \Carbon\Carbon::parse($todayAttendance->time_in)->format('h:i A') }}
+                                    <i class="fa-solid fa-check-circle me-1"></i> Timed In at
+                                    {{ \Carbon\Carbon::parse($todayAttendance->time_in)->format('h:i A') }}
                                 </div>
                                 <form action="{{ route('attendance.time-out') }}" method="POST">
                                     @csrf
@@ -31,7 +33,8 @@
                                 <div class="alert alert-info mt-3 d-inline-block">
                                     <i class="fa-solid fa-clipboard-check me-1"></i> Attendance Complete for Today
                                     <br>
-                                    <small>In: {{ \Carbon\Carbon::parse($todayAttendance->time_in)->format('h:i A') }} | Out: {{ \Carbon\Carbon::parse($todayAttendance->time_out)->format('h:i A') }}</small>
+                                    <small>In: {{ \Carbon\Carbon::parse($todayAttendance->time_in)->format('h:i A') }} | Out:
+                                        {{ \Carbon\Carbon::parse($todayAttendance->time_out)->format('h:i A') }}</small>
                                 </div>
                             @endif
                         @else
@@ -46,10 +49,10 @@
                 </div>
             </div>
         </div>
-        
+
         <script>
             // Live clock
-            setInterval(function() {
+            setInterval(function () {
                 var now = new Date();
                 var hours = now.getHours().toString().padStart(2, '0');
                 var minutes = now.getMinutes().toString().padStart(2, '0');
@@ -61,7 +64,8 @@
 
     <div class="card shadow-sm border-0 rounded-4">
         <div class="card-header bg-white py-3 border-bottom border-light">
-            <h6 class="m-0 fw-bolder text-dark">{{ $role === 'employee' ? 'Attendance Records' : 'Employee Attendance Logs' }}</h6>
+            <h6 class="m-0 fw-bolder text-dark">
+                {{ $role === 'employee' ? 'Attendance Records' : 'Employee Attendance Logs' }}</h6>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -91,11 +95,11 @@
                                     </td>
                                 @endif
                                 <td class="fw-normal">{{ \Carbon\Carbon::parse($log->date)->format('M d, Y') }}</td>
-                                <td class="{{ $log->time_in ? 'fw-normal' : 'text-muted' }}">
-                                    {{ $log->time_in ? \Carbon\Carbon::parse($log->time_in)->format('h:i A') : '--:--' }}
+                                <td class="fw-normal">
+                                    {{ $log->time_in ? \Carbon\Carbon::parse($log->time_in)->format('h:i A') : 'No Log' }}
                                 </td>
-                                <td class="{{ $log->time_out ? 'fw-normal' : 'text-muted' }}">
-                                    {{ $log->time_out ? \Carbon\Carbon::parse($log->time_out)->format('h:i A') : '--:--' }}
+                                <td class="fw-normal">
+                                    {{ $log->time_out ? \Carbon\Carbon::parse($log->time_out)->format('h:i A') : 'No Log' }}
                                 </td>
                                 <td class="fw-normal">
                                     @if($log->time_in && $log->time_out)
@@ -105,7 +109,7 @@
                                         @endphp
                                         <span>{{ $total }}</span>
                                     @else
-                                        <span class="text-muted">--</span>
+                                        <span class="fw-normal">N/A</span>
                                     @endif
                                 </td>
                                 <td>
@@ -122,7 +126,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="{{ ($role === 'admin' || $role === 'hr') ? 6 : 5 }}" class="text-center py-4 text-muted">No attendance records found.</td>
+                                <td colspan="{{ ($role === 'admin' || $role === 'hr') ? 6 : 5 }}"
+                                    class="text-center py-4 text-muted">No attendance records found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -130,9 +135,9 @@
             </div>
         </div>
         @if($attendances->hasPages())
-        <div class="card-footer bg-white border-top border-light">
-            {{ $attendances->links('pagination::bootstrap-5') }}
-        </div>
+            <div class="card-footer bg-white border-top border-light">
+                {{ $attendances->links('pagination::bootstrap-5') }}
+            </div>
         @endif
     </div>
 @endsection

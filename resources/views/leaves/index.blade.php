@@ -14,8 +14,8 @@
 
         .leaves-filter-select {
             width: auto;
-            height: 50px;
-            font-size: 1.1rem;
+            height: 38px;
+            font-size: 0.95rem;
         }
 
         .leaves-table {
@@ -98,8 +98,8 @@
 
             .leaves-filter-select {
                 width: 100%;
-                font-size: 1rem;
-                height: 44px;
+                font-size: 0.9rem;
+                height: 38px;
             }
 
             .leaves-table th,

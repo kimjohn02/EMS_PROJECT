@@ -4,17 +4,20 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="page-title mb-0 fw-bolder">Manage Departments</h2>
-        <a href="{{ route('departments.create') }}" class="btn btn-primary"><i class="fa-solid fa-plus me-1"></i> Add New Department</a>
+        <a href="{{ route('departments.create') }}" class="btn btn-primary"><i class="fa-solid fa-plus me-1"></i> Add New
+            Department</a>
     </div>
 
     <div class="card shadow-sm">
         <div class="card-header bg-white d-flex justify-content-between align-items-center">
             <form action="{{ route('departments.index') }}" method="GET" class="d-flex ms-auto">
                 <div class="input-group input-group-sm app-search-group">
-                    <input type="text" name="search" class="form-control" placeholder="Search department..." value="{{ request('search') }}">
+                    <input type="text" name="search" class="form-control" placeholder="Search department..."
+                        value="{{ request('search') }}">
                     <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-search"></i></button>
                     @if(request('search'))
-                        <a href="{{ route('departments.index') }}" class="btn btn-outline-danger"><i class="fa-solid fa-xmark"></i></a>
+                        <a href="{{ route('departments.index') }}" class="btn btn-outline-danger"><i
+                                class="fa-solid fa-xmark"></i></a>
                     @endif
                 </div>
             </form>
@@ -43,19 +46,24 @@
                                 </td>
                                 <td>
                                     @if($department->is_active)
-                                        <span class="badge-status badge-present"><i class="fa-solid fa-check-circle me-1"></i> Active</span>
+                                        <span class="badge-status badge-present"><i class="fa-solid fa-check-circle me-1"></i>
+                                            Active</span>
                                     @else
                                         <span class="badge-status badge-absent"><i class="fa-solid fa-ban me-1"></i> Inactive</span>
                                     @endif
                                 </td>
                                 <td class="text-end">
-                                    <a href="{{ route('departments.edit', $department->id) }}" class="btn btn-sm" title="Edit" style="color: #4f46e5; border: 1px solid #4f46e5; border-radius: 8px;">
+                                    <a href="{{ route('departments.edit', $department->id) }}" class="btn btn-sm" title="Edit"
+                                        style="color: #4f46e5; border: 1px solid #4f46e5; border-radius: 8px;">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <form action="{{ route('departments.destroy', $department->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this department? Make sure there are no employees assigned to it first.');">
+                                    <form action="{{ route('departments.destroy', $department->id) }}" method="POST"
+                                        class="d-inline"
+                                        onsubmit="return confirm('Delete this department? Make sure there are no employees assigned to it first.');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm" title="Delete" style="color: #ef4444; border: 1px solid #ef4444; border-radius: 8px;" {{ $department->employees_count > 0 ? 'disabled' : '' }}>
+                                        <button type="submit" class="btn btn-sm" title="Delete"
+                                            style="color: #ef4444; border: 1px solid #ef4444; border-radius: 8px;" {{ $department->employees_count > 0 ? 'disabled' : '' }}>
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </form>
@@ -71,9 +79,9 @@
             </div>
         </div>
         @if($departments->hasPages())
-        <div class="card-footer bg-white border-top border-light">
-            {{ $departments->links('pagination::bootstrap-5') }}
-        </div>
+            <div class="card-footer bg-white border-top border-light">
+                {{ $departments->links('pagination::bootstrap-5') }}
+            </div>
         @endif
     </div>
 @endsection

@@ -58,7 +58,7 @@ class DepartmentController extends Controller
         if ($department->employees()->count() > 0) {
             return redirect()->route('departments.index')->with('error', 'Cannot delete department with active employees.');
         }
-        
+
         $department->delete();
         return redirect()->route('departments.index')->with('success', 'Department deleted successfully.');
     }

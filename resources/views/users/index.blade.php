@@ -65,12 +65,11 @@
                                 <td class="text-muted">{{ $user->email }}</td>
                                 <td>
                                     @if($user->role === 'admin')
-                                        <span class="badge badge-admin">Admin</span>
+                                        <span class="badge-status badge-admin">Admin</span>
                                     @elseif($user->role === 'hr')
-                                        <span class="badge"
-                                            style="background-color: #e0e7ff; color: #4338ca; font-weight: 600; border-radius: 20px; padding: 4px 12px; font-size: 0.78rem;">HR</span>
+                                        <span class="badge-status badge-active">HR</span>
                                     @else
-                                        <span class="badge badge-present">Employee</span>
+                                        <span class="badge-status badge-present">Employee</span>
                                     @endif
                                 </td>
                                 <td>
