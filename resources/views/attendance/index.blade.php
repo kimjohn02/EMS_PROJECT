@@ -88,7 +88,7 @@
                             <tr>
                                 @if($role === 'admin' || $role === 'hr')
                                     <td class="fw-normal">
-                                        {{ $log->user->employee ? (int) preg_replace('/[^0-9]/', '', $log->user->employee->employee_id) : 'N/A' }}
+                                        {{ $log->user->employee ? (int) preg_replace('/[^0-9]/', '', $log->user->employee->employee_id) : (int) $log->user_id }}
                                     </td>
                                     <td class="fw-normal">
                                         {{ $log->user->name }}

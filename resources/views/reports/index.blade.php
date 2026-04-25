@@ -62,37 +62,88 @@
     </div>
 
     {{-- ===== Summary Cards ===== --}}
+    <style>
+        .report-metric-card {
+            min-height: 104px;
+        }
+
+        .report-metric-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .report-metric-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            transform: translateX(-0.35rem);
+        }
+
+        .report-metric-label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.1;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        .report-metric-value {
+            font-size: 2.75rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        @media (max-width: 575.98px) {
+            .report-metric-card {
+                min-height: 88px;
+            }
+
+            .report-metric-label {
+                font-size: 0.85rem;
+            }
+
+            .report-metric-value {
+                font-size: 2.25rem;
+            }
+        }
+    </style>
+
     <div class="row mb-4">
         <div class="col-md-4 mb-3 mb-md-0">
             <div class="card bg-success text-white border-0 rounded-4 shadow-sm">
-                <div class="card-body d-flex justify-content-between align-items-center py-3 px-4">
-                    <div>
-                        <div class="small fw-semibold text-white-50 text-uppercase">Present</div>
-                        <h2 class="display-5 fw-bold mb-0">{{ $presentCount }}</h2>
+                <div class="card-body d-flex align-items-center justify-content-center py-2 px-3 report-metric-card">
+                    <div class="report-metric-content">
+                    <i class="fa-solid fa-check-circle fa-2x report-metric-icon opacity-50"></i>
+                    <div class="report-metric-label text-white-50">Present</div>
+                    <div class="report-metric-value">{{ $presentCount }}</div>
                     </div>
-                    <i class="fa-solid fa-check-circle fa-2x opacity-50"></i>
                 </div>
             </div>
         </div>
         <div class="col-md-4 mb-3 mb-md-0">
             <div class="card bg-warning text-dark border-0 rounded-4 shadow-sm">
-                <div class="card-body d-flex justify-content-between align-items-center py-3 px-4">
-                    <div>
-                        <div class="small fw-semibold opacity-75 text-uppercase">Late</div>
-                        <h2 class="display-5 fw-bold mb-0">{{ $lateCount }}</h2>
+                <div class="card-body d-flex align-items-center justify-content-center py-2 px-3 report-metric-card">
+                    <div class="report-metric-content">
+                    <i class="fa-solid fa-clock-rotate-left fa-2x report-metric-icon opacity-50"></i>
+                    <div class="report-metric-label text-dark opacity-75">Late</div>
+                    <div class="report-metric-value">{{ $lateCount }}</div>
                     </div>
-                    <i class="fa-solid fa-clock-rotate-left fa-2x opacity-50"></i>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card bg-danger text-white border-0 rounded-4 shadow-sm">
-                <div class="card-body d-flex justify-content-between align-items-center py-3 px-4">
-                    <div>
-                        <div class="small fw-semibold text-white-50 text-uppercase">Absent</div>
-                        <h2 class="display-5 fw-bold mb-0">{{ $absentCount }}</h2>
+                <div class="card-body d-flex align-items-center justify-content-center py-2 px-3 report-metric-card">
+                    <div class="report-metric-content">
+                    <i class="fa-solid fa-xmark-circle fa-2x report-metric-icon opacity-50"></i>
+                    <div class="report-metric-label text-white-50">Absent</div>
+                    <div class="report-metric-value">{{ $absentCount }}</div>
                     </div>
-                    <i class="fa-solid fa-xmark-circle fa-2x opacity-50"></i>
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Attendance;
+use App\Models\LeaveRequest;
 use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
@@ -58,6 +59,16 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Pedro Reyes', 'email' => 'pedro@ems.com', 'dept' => 4, 'pos' => 'Operations Lead', 'eid' => 'EMP-005'],
             ['name' => 'Ana Gonzales', 'email' => 'ana@ems.com', 'dept' => 5, 'pos' => 'Marketing Specialist', 'eid' => 'EMP-006'],
             ['name' => 'Carlos Mendoza', 'email' => 'carlos@ems.com', 'dept' => 1, 'pos' => 'QA Engineer', 'eid' => 'EMP-007'],
+            ['name' => 'Liza Fernandez', 'email' => 'liza@ems.com', 'dept' => 2, 'pos' => 'HR Associate', 'eid' => 'EMP-008'],
+            ['name' => 'Mark Villanueva', 'email' => 'mark@ems.com', 'dept' => 1, 'pos' => 'Frontend Developer', 'eid' => 'EMP-009'],
+            ['name' => 'Rina Bautista', 'email' => 'rina@ems.com', 'dept' => 3, 'pos' => 'Financial Analyst', 'eid' => 'EMP-010'],
+            ['name' => 'Noel Garcia', 'email' => 'noel@ems.com', 'dept' => 4, 'pos' => 'Operations Officer', 'eid' => 'EMP-011'],
+            ['name' => 'Joy Lim', 'email' => 'joy@ems.com', 'dept' => 5, 'pos' => 'Content Strategist', 'eid' => 'EMP-012'],
+            ['name' => 'Paolo Diaz', 'email' => 'paolo@ems.com', 'dept' => 1, 'pos' => 'Backend Developer', 'eid' => 'EMP-013'],
+            ['name' => 'Trisha Cruz', 'email' => 'trisha@ems.com', 'dept' => 2, 'pos' => 'Recruitment Specialist', 'eid' => 'EMP-014'],
+            ['name' => 'Ivan Mendoza', 'email' => 'ivan@ems.com', 'dept' => 4, 'pos' => 'Logistics Coordinator', 'eid' => 'EMP-015'],
+            ['name' => 'Sophie Ramos', 'email' => 'sophie@ems.com', 'dept' => 5, 'pos' => 'Brand Manager', 'eid' => 'EMP-016'],
+            ['name' => 'Kevin Tan', 'email' => 'kevin@ems.com', 'dept' => 3, 'pos' => 'Payroll Specialist', 'eid' => 'EMP-017'],
         ];
 
         foreach ($employees as $emp) {
@@ -92,6 +103,37 @@ class DatabaseSeeder extends Seeder
                     'status' => $present ? 'present' : 'absent',
                 ]);
             }
+        }
+
+        // Seed Leave Requests for non-admin users
+        $leaveTypes = ['vacation', 'sick', 'emergency', 'other'];
+        $leaveReasons = [
+            'Medical checkup and recovery.',
+            'Family emergency assistance.',
+            'Planned vacation leave.',
+            'Personal matters requiring time off.',
+            'Attending urgent legal appointment.',
+        ];
+        $leaveUsers = User::where('role', '!=', 'admin')->get();
+
+        foreach ($leaveUsers as $user) {
+            if (rand(0, 1) === 0) {
+                continue;
+            }
+
+            $startDate = Carbon::now()->subDays(rand(1, 45));
+            $duration = rand(1, 3);
+            $status = ['pending', 'approved', 'rejected'][rand(0, 2)];
+
+            LeaveRequest::create([
+                'user_id' => $user->id,
+                'type' => $leaveTypes[array_rand($leaveTypes)],
+                'start_date' => $startDate->toDateString(),
+                'end_date' => $startDate->copy()->addDays($duration)->toDateString(),
+                'reason' => $leaveReasons[array_rand($leaveReasons)],
+                'status' => $status,
+                'rejection_reason' => $status === 'rejected' ? 'Insufficient leave balance for requested period.' : null,
+            ]);
         }
     }
 }
