@@ -14,14 +14,16 @@ class ReportsController extends Controller
         $dateFrom = $request->input('date_from', now()->format('Y-m-d'));
         $dateTo   = $request->input('date_to',   now()->format('Y-m-d'));
 
-        $attendances = Attendance::with('user.employee.department')
-            ->whereBetween('date', [$dateFrom, $dateTo])
-            ->orderBy('date', 'asc')
-            ->get();
+        $query = Attendance::whereBetween('date', [$dateFrom, $dateTo]);
 
-        $presentCount = $attendances->where('status', 'present')->count();
-        $absentCount  = $attendances->where('status', 'absent')->count();
-        $lateCount    = $attendances->where('status', 'late')->count();
+        $presentCount = (clone $query)->where('status', 'present')->count();
+        $absentCount  = (clone $query)->where('status', 'absent')->count();
+        $lateCount    = (clone $query)->where('status', 'late')->count();
+
+        $attendances = $query->with('user.employee.department')
+            ->orderBy('date', 'asc')
+            ->paginate(7)
+            ->withQueryString();
 
         return view('reports.index', compact(
             'attendances', 'departments', 'dateFrom', 'dateTo',

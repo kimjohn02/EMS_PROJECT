@@ -22,7 +22,7 @@ class UserManagementController extends Controller
                     ->orWhere('email', 'like', "%{$search}%");
             });
         }
-        $users = $query->orderBy('created_at', 'asc')->paginate(10)->withQueryString();
+        $users = $query->orderBy('created_at', 'asc')->paginate(7)->withQueryString();
         return view('users.index', compact('users'));
     }
 

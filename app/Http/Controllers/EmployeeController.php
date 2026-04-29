@@ -28,7 +28,7 @@ class EmployeeController extends Controller
             });
         }
 
-        $employees = $query->paginate(10);
+        $employees = $query->paginate(7);
         $archivedCount = Employee::where('status', 'archived')->count();
         return view('employees.index', compact('employees', 'archivedCount'));
     }
@@ -132,7 +132,7 @@ class EmployeeController extends Controller
             })->orWhere('employee_id', 'like', "%{$search}%");
         }
 
-        $employees = $query->paginate(10);
+        $employees = $query->paginate(7);
         return view('employees.archived', compact('employees'));
     }
 

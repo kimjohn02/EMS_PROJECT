@@ -31,7 +31,7 @@ class LeaveRequestController extends Controller
             });
         }
 
-        $leaves = $query->paginate(10)->withQueryString();
+        $leaves = $query->paginate(7)->withQueryString();
 
         return view('leaves.index', compact('leaves'));
     }

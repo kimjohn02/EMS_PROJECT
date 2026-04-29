@@ -225,6 +225,11 @@
                 </table>
             </div>
         </div>
+        @if($attendances->hasPages())
+            <div class="card-footer bg-white border-top border-light d-print-none">
+                {{ $attendances->links('pagination::bootstrap-5') }}
+            </div>
+        @endif
     </div>
 
     {{-- ===== Print Styles ===== --}}

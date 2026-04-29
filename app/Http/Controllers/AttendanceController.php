@@ -15,12 +15,12 @@ class AttendanceController extends Controller
         $user = Auth::user();
         
         if ($user->isAdmin() || $user->isHR()) {
-            $attendances = Attendance::with('user')->orderBy('date', 'desc')->paginate(10);
+            $attendances = Attendance::with('user')->orderBy('date', 'desc')->paginate(7);
             return view('attendance.index', compact('attendances'));
         }
 
         // Employee view
-        $attendances = Attendance::where('user_id', $user->id)->orderBy('date', 'desc')->paginate(10);
+        $attendances = Attendance::where('user_id', $user->id)->orderBy('date', 'desc')->paginate(7);
         $today = Carbon::today()->toDateString();
         $todayAttendance = Attendance::where('user_id', $user->id)->where('date', $today)->first();
 
