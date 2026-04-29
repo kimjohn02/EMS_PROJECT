@@ -6,20 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * @property int $id
- * @property int $user_id
- * @property int|null $department_id
- * @property string $employee_id
- * @property string|null $phone
- * @property string $position
- * @property \Illuminate\Support\Carbon $date_hired
- * @property string $status
- * @property string|null $address
- * @property string|null $profile_photo
- * @property \App\Models\User $user
- * @property \App\Models\Department|null $department
- */
+
 class Employee extends Model
 {
     use HasFactory, SoftDeletes;
